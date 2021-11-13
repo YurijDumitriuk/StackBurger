@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Server.Authentication;
 
 namespace Server {
     public class Startup {
@@ -30,7 +31,8 @@ namespace Server {
 
             if (env.IsDevelopment())         
                 app.UseDeveloperExceptionPage();
-            
+
+            //app.UseBasicAuthentication();
             app.UseRouting();
             app.UseEndpoints(endpoints => {
                 endpoints.MapGet("/", async context => {
