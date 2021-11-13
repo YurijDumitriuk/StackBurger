@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Server.Models
-{
-    [Table("burgers")]
-    public class Burger
-    {
-        [Column("id")]
+namespace Server.Models {
+    public class Burger {
         public Guid Id { get; set; }
-        [Column("custom")]
-        public bool Custom { get; set; }
-        [Column("name")]
+        public bool IsCustom { get; set; }
         public string Name { get; set; }
-        [Column("description")]
         public string Description { get; set; }
-        List<Order> Orders { get; set; } = new List<Order>();
+
+        public List<Order> Orders { get; set; }
+        public List<Component> Components { get; set; }
+        public Burger() {
+            Components = new List<Component>();
+            Orders = new List<Order>();
+        }
     }
 }

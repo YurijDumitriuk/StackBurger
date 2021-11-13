@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Server.Models
-{
-    [Table("orders")]
-    public class Order
-    {
-        [Column("id")]
+namespace Server.Models {
+    public class Order {
         public Guid Id { get; set; }
-        [Column("date")]
         public DateTime Date { get; set; }
-        [Column("user_id")]
+
         public Guid UserId { get; set; }
-        List<Burger> Burgers { get; set; } = new List<Burger>();
+
+        public List<Burger> Burgers { get; set; }
+        public Order() {
+            Burgers = new List<Burger>();
+        }    
     }
 }
