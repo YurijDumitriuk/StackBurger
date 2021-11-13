@@ -18,14 +18,20 @@ namespace Server {
             services.AddDbContext<StackBurgerContext>(
                 options => options.UseSqlServer(connectionString)    
             );
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+            app.UseCors(builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+            );
+
             if (env.IsDevelopment())         
                 app.UseDeveloperExceptionPage();
             
             app.UseRouting();
-
             app.UseEndpoints(endpoints => {
                 endpoints.MapGet("/", async context => {
                     await context.Response.WriteAsync("Hello World!");
