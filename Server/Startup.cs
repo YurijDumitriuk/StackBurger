@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Server.Authentication;
 
+using Server.Services;
+
 namespace Server {
     public class Startup {
 
@@ -20,6 +22,8 @@ namespace Server {
                 options => options.UseSqlServer(connectionString)    
             );
             services.AddCors();
+            services.AddControllers();
+            services.AddTransient<BurgerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -35,6 +39,7 @@ namespace Server {
             //app.UseBasicAuthentication();
             app.UseRouting();
             app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
                 endpoints.MapGet("/", async context => {
                     await context.Response.WriteAsync("Hello World!");
                 });

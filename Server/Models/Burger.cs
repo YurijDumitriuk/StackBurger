@@ -14,5 +14,14 @@ namespace Server.Models {
             Components = new List<Component>();
             Orders = new List<Order>();
         }
+
+        public Burger(bool isCustom, string name, string description, List<Component> components)
+        {
+            Id = new Guid();
+            IsCustom = isCustom;
+            Name = name;
+            Description = description;
+            Components = components;
+        }
     }
 }
