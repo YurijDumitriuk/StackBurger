@@ -11,7 +11,7 @@ using Server.Services;
 namespace Server.Controllers
 {
     [ApiController]
-    [Route("/res")]
+    [Route("/res/burgers")]
     public class BurgerController : Controller
     {
         private BurgerService manager;

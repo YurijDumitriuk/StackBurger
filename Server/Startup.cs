@@ -24,6 +24,7 @@ namespace Server {
             services.AddCors();
             services.AddControllers();
             services.AddTransient<BurgerService>();
+            services.AddTransient<ComponentService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
