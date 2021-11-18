@@ -1,0 +1,83 @@
+/*Обнуление*/
+*{
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,*:before,*:after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+/*--------------------*/
+
+.Navbar{
+  position: sticky;
+  top: 0;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  line-height: 47px;
+  font-family: Noto Sans;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: capitalize;
+  margin-bottom: 30px;
+
+}
+.NavigationItems{
+  list-style-type:none ;
+}
+.NavigationItems .ListItem{
+  display: inline-block;
+  padding: 20px 20px;
+}
+
+.Navbar a{
+  color: white;
+  text-decoration: none;
+}
+.Navbar a:hover{
+  color: #BED9A6;
+  text-decoration: underline;
+  text-shadow: 0px 8px 15px #BED9A6;
+}
+
+.NavbarLogo{
+  margin-left:137px;
+  height: 90px;
+}
+
+.NavbarCart{
+  height: 44px;
+  margin-right: 137px; 
+}

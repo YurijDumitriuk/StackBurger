@@ -13,7 +13,16 @@ namespace Server.Services {
         }
 
         public async Task<List<Component>> GetComponents() {
-            return await Context.Components.ToListAsync();
+            List<Component> components;
+            try
+            {
+                components = await Context.Components.ToListAsync();
+            }
+            catch
+            {
+                return null;
+            }
+            return components;
         }
     }
 }
