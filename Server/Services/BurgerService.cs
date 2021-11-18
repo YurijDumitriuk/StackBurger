@@ -13,9 +13,21 @@ namespace Server.Services {
             Context = context;
         }
 
-        public async Task<List<Burger>> GetBurgers() {
-            List<Burger> burgers = await Context.Burgers.ToListAsync();
-            return burgers;
+        public async Task<object> GetBurgers() {
+            List<Burger> burgers = new List<Burger>();
+            List<Guid> ids = await Context.Burgers.Select(b => b.Id).ToListAsync();
+            foreach(Guid id in ids) 
+                burgers.Add(await GetBurgerById(id));
+            
+            var result = burgers.Select(b => new {
+                Id = b.Id,
+                Name = b.Name, 
+                Descripton = b.Description,
+                Components = b.Components.Select(c => c.Name).ToList(),
+                Price = b.Components.Sum(c => c.Price),
+                Calories = b.Components.Sum(c => c.Calories)
+            });
+            return result;
         }
 
         public async Task<Burger> GetBurgerById(Guid? id) {
@@ -24,7 +36,8 @@ namespace Server.Services {
             List<Component> components = await Context.BurgersComponents
                 .Where(bc => bc.BurgerId == id)
                 .OrderBy(bc => bc.SerialNumber)
-                .Select(bc => Context.Components.Single(c => c.Id == bc.ComponentId))
+                .Select(bc => Context.Components
+                    .Single(c => c.Id == bc.ComponentId))
                 .ToListAsync();
             burger.Components = components;
             return burger;

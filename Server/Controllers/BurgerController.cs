@@ -15,17 +15,15 @@ namespace Server.Controllers {
         }
 
         [HttpGet]
-        public async Task<ReturnModel<List<Burger>>> GetBurgers() {
-            List<Burger> burgers = await Service.GetBurgers();
-            if (burgers == null)           
-                return new ReturnModel<List<Burger>>(null, 404, "Something goes wrong on resource server");         
-            return new ReturnModel<List<Burger>>(burgers, 200, "All burgers returned");
+        public async Task<ReturnModel<object>> GetBurgers() {
+            var burgers = await Service.GetBurgers();
+            return new ReturnModel<object>(burgers, 200, "All burger returned");
         }
 
         [HttpGet("{id}")]
         public async Task<ReturnModel<Burger>> GetBurgerById(Guid id) {
             Burger burger = await Service.GetBurgerById(id);
-            return new ReturnModel<Burger>(burger, 200, "All burgers returned");
+            return new ReturnModel<Burger>(burger, 200, "Burger returned");
         }
     }
 }

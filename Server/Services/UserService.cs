@@ -18,7 +18,7 @@ namespace Server.Services {
         }
 
         public async Task<User> GetUserById(Guid id) {
-            return await Context.Users.SingleAsync(u => u.Id == id);
+            return await Context.Users.SingleOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task AddUser(User user) {
@@ -26,14 +26,9 @@ namespace Server.Services {
             await Context.SaveChangesAsync();
         }
 
-        public async Task EditUser(User user) {
-            Context.Users.Update(user);
-            await Context.SaveChangesAsync();
-        }
-
-        public async Task DeleteUser(Guid id) {
-            Context.Users.Remove(new User { Id = id });
-            await Context.SaveChangesAsync();
+        public async Task<User> GetUserByCredentials(string name, string password) {
+            return await Context.Users.
+                SingleOrDefaultAsync(u => u.Name == name && u.Password == password);
         }
     }
 }

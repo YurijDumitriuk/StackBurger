@@ -15,31 +15,25 @@ namespace Server.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers() {
+        public async Task<IActionResult> GetAllUsers() {
             return Ok(await Service.GetUsers());
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(Guid id) {
+        public async Task<IActionResult> Details(Guid id) {
             return Ok(await Service.GetUserById(id));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser(User user) {
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(User user) {
             await Service.AddUser(user);
             return Ok();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> EditUser(User user) {
-            await Service.EditUser(user);
-            return Ok();
-        }
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteUser(Guid id) {
-            await Service.DeleteUser(id);
-            return Ok();
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(User user) {
+            user = await Service.GetUserByCredentials(user.Name, user.Password);
+            return user != null ? Ok(user) : Unauthorized();
         }
     }
 }

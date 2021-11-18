@@ -23,6 +23,7 @@ namespace Server {
             );
             services.AddCors();
             services.AddControllers();
+            services.AddTransient<UserService>();
             services.AddTransient<BurgerService>();
             services.AddTransient<ComponentService>();
         }
