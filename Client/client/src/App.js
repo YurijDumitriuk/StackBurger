@@ -6,13 +6,7 @@ import { environment } from './env'
 import {Burger} from './models/Burger'
 import { Suspense } from 'react';
 import { useState } from 'react';
-
-/*const Burger={
-  name:,
-  components[]:,
-  calories:,
-  price:,
-};*/
+//import { BurgerService } from './services/BurgerService'
 
 let burgers = null;
 
@@ -22,7 +16,7 @@ async function Get() {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }
-  const response = await fetch(environment.GetResUrl("/burgers"), requestOptions)
+  const response = await fetch(environment.GetResUrl("/burger"), requestOptions)
   const data = await response.json()
   return data
 }
@@ -54,17 +48,19 @@ async function InitializeData(setLoading) {
   }
   else {
     burgers = Data.data
+    console.log(burgers);
     burgers.forEach((item,index)=>{
-      let comp
-      let componentsString="Condiments and toppings as desired, such as mayonnaise, mustard, shredded lettuce, onions, tomatoes, and pickles 4 ounces freshly ground beef chuck, divided into two 2-ounce balls";
-      try{
-        comp = GetBurgerComponents(item.id);
-      }
-      catch{
-        console.log("error")
-      }
-      console.log(comp)
-      itemList.push(<BurgerCard name={item.name} components={componentsString} calories={567} price={"12.00"} />)
+      var componentsList = "";
+      item.components.forEach((c,ind)=>{
+        componentsList += c;
+        if(ind !== item.components.length - 1){        
+          componentsList += ", ";
+        }
+        else{
+          componentsList += ".";
+        }
+      })
+      itemList.push(<BurgerCard name={item.name} components={componentsList} calories={item.calories} price={item.price} />)
     })
     setLoading(false)
   }
