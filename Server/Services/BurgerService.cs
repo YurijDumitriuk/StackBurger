@@ -15,10 +15,16 @@ namespace Server.Services {
 
         public async Task<object> GetBurgers() {
             List<Burger> burgers = new List<Burger>();
-            List<Guid> ids = await Context.Burgers.Select(b => b.Id).ToListAsync();
-            foreach(Guid id in ids) 
-                burgers.Add(await GetBurgerById(id));
-            
+            try
+            {
+                List<Guid> ids = await Context.Burgers.Select(b => b.Id).ToListAsync();
+                foreach (Guid id in ids)
+                    burgers.Add(await GetBurgerById(id));
+            }
+            catch
+            {
+                return null;
+            }
             var result = burgers.Select(b => new {
                 Id = b.Id,
                 Name = b.Name, 
@@ -31,15 +37,23 @@ namespace Server.Services {
         }
 
         public async Task<Burger> GetBurgerById(Guid? id) {
-            Burger burger = await Context.Burgers.
-                SingleAsync(b => b.Id == id);
-            List<Component> components = await Context.BurgersComponents
-                .Where(bc => bc.BurgerId == id)
-                .OrderBy(bc => bc.SerialNumber)
-                .Select(bc => Context.Components
-                    .Single(c => c.Id == bc.ComponentId))
-                .ToListAsync();
-            burger.Components = components;
+            Burger burger;
+            try
+            {
+                burger = await Context.Burgers.
+                    SingleAsync(b => b.Id == id);
+                List<Component> components = await Context.BurgersComponents
+                    .Where(bc => bc.BurgerId == id)
+                    .OrderBy(bc => bc.SerialNumber)
+                    .Select(bc => Context.Components
+                        .Single(c => c.Id == bc.ComponentId))
+                    .ToListAsync();
+                burger.Components = components;
+            }
+            catch
+            {
+                return null;
+            }
             return burger;
         }        
     }
