@@ -13,25 +13,25 @@ namespace Server.Services
         private StackBurgerContext context;
 
         public BurgerService(StackBurgerContext _context)
-        {
-            
+        {            
             context = _context;
         }
 
-        public async Task<BurgerComponent> GetbyId(Guid? id)
+        public async Task<List<BurgerComponent>> GetbyId(Guid? id)
         {
-            BurgerComponent burger;
+            List<BurgerComponent> burgerComponents;
+            List<Component> components;
             try
             {
-                burger = await context.BurgersComponents.SingleAsync(b => b.BurgerId == id);
+                burgerComponents = await context.BurgersComponents.Where(b => b.BurgerId == id).OrderBy(b => b.SerialNumber).Include(b => b.Component).ToListAsync();
                 //burger = await context.Burgers.Inc
                 //Burgers.Include(b => b.Components).SingleAsync(b => b.Id == id);
             }
-            catch
+            catch(Exception e)
             {
                 return null;
             }
-            return burger;
+            return burgerComponents;
         }
 
         
@@ -40,7 +40,7 @@ namespace Server.Services
             List<Burger> burgers = null;
             try
             {
-                 burgers = await context.Burgers.Where(b => b.IsCustom).ToListAsync();
+                burgers = await context.Burgers.Where(b => b.IsCustom).ToListAsync();                
             }
             catch(Exception e)
             {

@@ -43,5 +43,19 @@ namespace Server.Services
             }
             return components;
         }
+
+        public async Task<List<Component>> GetbyBurgerId(Guid? id)
+        {
+            List<Component> components;
+            try
+            {
+                components = await context.BurgersComponents.Where(b => b.BurgerId == id).OrderBy(bc => bc.SerialNumber).Select(c => c.Component).ToListAsync();
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+            return components;
+        }
     }
 }

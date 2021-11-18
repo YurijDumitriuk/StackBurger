@@ -24,9 +24,9 @@ namespace Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid? id)
         {
-            BurgerComponent burger = await manager.GetbyId(id);
+            List<BurgerComponent> burgerComponents = await manager.GetbyId(id);
 
-            return Ok(new ReturnModel<BurgerComponent>(burger, 200, "All burgers returned"));
+            return Ok(new ReturnModel<List<BurgerComponent>>(burgerComponents, 200, "Burger returned"));
         }
 
         [HttpGet]
