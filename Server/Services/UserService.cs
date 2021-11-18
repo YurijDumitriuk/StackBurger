@@ -7,32 +7,33 @@ using Server.Models;
 
 namespace Server.Services {
     public class UserService {
-        private readonly StackBurgerContext context;
+
+        private StackBurgerContext Context { get; }
         public UserService(StackBurgerContext context) {
-            this.context = context;
+            Context = context;
         }
 
         public async Task<List<User>> GetUsers() {
-            return await context.Users.ToListAsync();
+            return await Context.Users.ToListAsync();
         }
 
         public async Task<User> GetUserById(Guid id) {
-            return await context.Users.SingleAsync(u => u.Id == id);
+            return await Context.Users.SingleAsync(u => u.Id == id);
         }
 
         public async Task AddUser(User user) {
-            await context.Users.AddAsync(user);
-            await context.SaveChangesAsync();
+            await Context.Users.AddAsync(user);
+            await Context.SaveChangesAsync();
         }
 
         public async Task EditUser(User user) {
-            context.Users.Update(user);
-            await context.SaveChangesAsync();
+            Context.Users.Update(user);
+            await Context.SaveChangesAsync();
         }
 
         public async Task DeleteUser(Guid id) {
-            context.Users.Remove(new User { Id = id });
-            await context.SaveChangesAsync();
+            Context.Users.Remove(new User { Id = id });
+            await Context.SaveChangesAsync();
         }
     }
 }

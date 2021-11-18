@@ -1,33 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
-
-using Server.Services;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Server.Models;
+using Server.Services;
 
-namespace Server.Controllers
-{
-    [ApiController]
-    [Route("/res/components")]
-    public class ComponentController : Controller
-    {
-        private ComponentService manager;
+namespace Server.Controllers {
+    [ApiController] [Route("/api/[controller]")]
+    public class ComponentController : ControllerBase {
 
-        public ComponentController(ComponentService _manager)
-        {
-            manager = _manager;
+        private ComponentService Service { get; }
+        public ComponentController(ComponentService service) {
+            Service = service;
         }
 
         [HttpGet]
-        public async Task<ReturnModel<List<Component>>> Get()
-        {
-            List<Component> components = await manager.Get();
-            if (components == null)
-            {
-                return new ReturnModel<List<Component>>(null, 404, "Something goes wrong on resource server");
-            }
+        public async Task<ReturnModel<List<Component>>> Get() {
+            List<Component> components = await Service.GetComponents();
+            if (components == null) 
+                return new ReturnModel<List<Component>>(null, 404, "Something goes wrong on resource server");            
             return new ReturnModel<List<Component>>(components, 200, "All components returned");
         }
     }
