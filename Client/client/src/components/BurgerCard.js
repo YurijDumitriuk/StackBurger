@@ -11,7 +11,7 @@ class BurgerCard extends Component {
         </div>
         <div className="BurgerComponents">
           <p>
-            {this.props.components}{this.props.components}
+            {this.props.components}
           </p>
         </div>
         <div className="BurgerCalories">
