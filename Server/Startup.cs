@@ -9,6 +9,7 @@ using FluentValidation.AspNetCore;
 using Server.Authentication;
 using Server.Services;
 using Server.Validation;
+using Server.Checker;
 
 namespace Server {
     public class Startup {
@@ -45,7 +46,9 @@ namespace Server {
             if (env.IsDevelopment())         
                 app.UseDeveloperExceptionPage();
 
+            app.UseDatabaseConnectivityChecker();
             //app.UseBasicAuthentication();
+
             app.UseRouting();
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();

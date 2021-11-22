@@ -9,9 +9,12 @@ namespace Server.ModelsConfigurations {
             builder.Property(c => c.Id).HasColumnName("id");
             builder.Property(c => c.Name).HasColumnName("name");
             builder.Property(c => c.Url).HasColumnName("url");
-            builder.Property(c => c.Price).HasColumnName("price");
-            builder.Property(c => c.Calories).HasColumnName("calories");
-            builder.Property(c => c.Weight).HasColumnName("weight");
+            builder.Property(c => c.Price).HasColumnName("price")
+                .HasColumnType("decimal(18,2)");
+            builder.Property(c => c.Calories).HasColumnName("calories")
+                .HasColumnType("decimal(18,2)");
+            builder.Property(c => c.Weight).HasColumnName("weight")
+                .HasColumnType("decimal(18,0)");
             builder.HasKey(c => c.Id);
         }
     }
