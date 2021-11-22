@@ -7,7 +7,7 @@ import {Burger} from './models/Burger'
 import { Suspense } from 'react';
 import { useState } from 'react';
 //import { BurgerService } from './services/BurgerService'
-
+import { Link } from "react-router-dom";
 let burgers = null;
 
 

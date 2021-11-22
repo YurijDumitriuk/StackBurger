@@ -1,0 +1,124 @@
+/*Обнуление*/
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+  *,*:before,*:after{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  :focus,:active{outline: none;}
+  a:focus,a:active{outline: none;}
+  
+  nav,footer,header,aside{display: block;}
+  
+  html,body{
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  input,button,textarea{font-family:inherit;}
+  
+  input::-ms-clear{display: none;}
+  button{cursor: pointer;}
+  button::-moz-focus-inner {padding:0;border:0;}
+  a, a:visited{text-decoration: none;}
+  a:hover{text-decoration: none;}
+  ul li{list-style: none;}
+  img{vertical-align: top;}
+  
+  h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+  /*--------------------*/
+
+  .FormWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    margin-top: 8%;
+  }
+    
+  .RegistrationFormWrapper{
+    background-color: #000000;
+    border: 1px solid #000000;
+    border-radius: 35px;
+    mix-blend-mode: soft-light;
+    box-shadow: 0px 10px 30px #BED9A6;
+  }
+  .RegistrationForm{
+    
+    width: 900px;
+    margin-inline-start: 16.6%;
+      
+  }
+
+  .RegistrationFormTitle{
+    color: white;
+    margin-block-end: 1em;
+    margin-block-start: 1em;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 72px;
+    line-height: 0px;
+    letter-spacing: 0.05em;
+    padding-left: 0;
+    
+  }
+
+  .RegistrationFormField input{
+    width: 600px;
+    height: 55px;
+    margin-block-end: 1em;
+    border-radius: 20px;
+    background-color: rgb(216,216,216);
+    color:black;
+    font-family: Noto Sans;
+    font-style: normal;
+    letter-spacing: 0.05em;
+    font-size: 36px;
+    padding-left: 2%;
+  }
+  
+  .RegistrationFormField input:focus{
+    border: 1px solid #000000;
+    box-shadow: 0px 0px 65px #BED9A6;
+    transform:360deg;
+  }
+  .SubmitButton{
+    font-family: Noto Sans;
+    font-style: normal;
+    letter-spacing: 0.05em;
+  }
+  .RegistrationFormButton{
+    margin-left:21%;
+    margin-block-end: 1em;
+  }
+
+  .SubmitButton{
+    width: 220px;
+    height: 50px;
+    background-color: rgb(89, 131, 7);
+    border-radius: 35px;
+    border-color: rgb(89, 131, 7);
+    margin-block-end: 1em;
+    font-family: Noto Sans;
+    font-style: normal;
+    
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 23px;
+    color: #ffffff;
+  }
+
+  .SubmitButton:hover {
+    box-shadow: 0px 5px 30px #BED9A6;
+    cursor: pointer;
+  }

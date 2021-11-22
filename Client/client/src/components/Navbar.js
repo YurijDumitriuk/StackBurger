@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import './Navbar.css';
 import logo from "../images/logo.png";
-import cart from "../images/cart.png"
+import cart from "../images/cart.png";
+import { Link } from "react-router-dom";
 class Navbar extends Component{
 	render(){
 		return(
@@ -13,12 +14,21 @@ class Navbar extends Component{
 					<li className="ListItem">
 						<a href="#">CONSTRUCTOR</a>
 					</li>
-					<li className="ListItem">
-						<a href="#">MENU</a>
-					</li>
-					<li className="ListItem">
-						<a href="#">LOGIN</a>
-					</li>
+					<Link to="/">
+						<li className="ListItem">
+							<a href="#">MENU</a>
+						</li>
+					</Link>
+					<Link to="/login">
+						<li className="ListItem">
+							<a href="#">LOGIN</a>
+						</li>
+					</Link>
+					<Link to="/registration">
+						<li className="ListItem">
+							<a href="#">REGISTRATION</a>
+						</li>
+					</Link>
 					<li className="ListItem">
 						<div>
 							<a href="#">
