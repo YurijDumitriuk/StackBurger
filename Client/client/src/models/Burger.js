@@ -1,4 +1,4 @@
-export class TaskModel 
+export class Burger 
 {
     constructor(id, custom, name, description, orders, components){
         this.id = id;

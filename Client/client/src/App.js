@@ -1,15 +1,10 @@
-import logo from './images/logo.svg';
 import './App.css';
 import BurgerCard from './components/BurgerCard.js'
 import Navbar from './components/Navbar.js'
 import { environment } from './env'
-import {Burger} from './models/Burger'
-import { Suspense } from 'react';
 import { useState } from 'react';
-//import { BurgerService } from './services/BurgerService'
-import { Link } from "react-router-dom";
-let burgers = null;
 
+let burgers = null;
 
 async function Get() {
   const requestOptions = {
@@ -17,16 +12,6 @@ async function Get() {
     headers: { 'Content-Type': 'application/json' }
   }
   const response = await fetch(environment.GetResUrl("/burger"), requestOptions)
-  const data = await response.json()
-  return data
-}
-
-async function GetBurgerComponents(id){
-  const requestOptions = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
-  }
-  const response = await fetch(environment.GetResUrl("/components/" + id), requestOptions)
   const data = await response.json()
   return data
 }
@@ -43,12 +28,12 @@ async function InitializeData(setLoading) {
     alert("Resource server doesn't respond")
     return
   }
-  console.log(Data)
+  //console.log(Data)
   if (Data.status !== 200) {
   }
   else {
     burgers = Data.data
-    console.log(burgers);
+    //console.log(burgers);
     burgers.forEach((item,index)=>{
       var componentsList = "";
       item.components.forEach((c,ind)=>{
