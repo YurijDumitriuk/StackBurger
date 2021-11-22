@@ -90,7 +90,6 @@
   .LoginFormField input:focus{
     border: 1px solid #000000;
     box-shadow: 0px 0px 65px #BED9A6;
-    transform:360deg;
   }
   .SubmitButton{
     font-family: Noto Sans;
