@@ -34,6 +34,7 @@ namespace Server {
             services.AddTransient<UserService>();
             services.AddTransient<BurgerService>();
             services.AddTransient<ComponentService>();
+            services.AddTransient<OrderService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

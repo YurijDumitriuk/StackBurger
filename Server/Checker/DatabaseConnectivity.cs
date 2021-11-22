@@ -8,14 +8,12 @@ namespace Server.Checker {
     public class DatabaseConnectivity {
 
         private RequestDelegate Next { get; }
-        private StackBurgerContext Context { get; }
-        public DatabaseConnectivity(RequestDelegate next, StackBurgerContext context) {
+        public DatabaseConnectivity(RequestDelegate next) {
             Next = next;
-            Context = context;
         }
 
-        public async Task InvokeAsync(HttpContext httpContext) {
-            if (await Context.Database.CanConnectAsync()) {
+        public async Task InvokeAsync(HttpContext httpContext, StackBurgerContext dbContext) {
+            if (await dbContext.Database.CanConnectAsync()) {
                 await Next(httpContext);
             } else {
                 ReturnModel<object> result = new ReturnModel<object>(null, 503, "Service unavailable");
