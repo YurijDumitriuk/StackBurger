@@ -17,13 +17,15 @@ namespace Server.Controllers {
         [HttpGet]
         public async Task<ReturnModel<object>> GetBurgers() {
             var burgers = await Service.GetBurgers();
-            return new ReturnModel<object>(burgers, 200, "All burger returned");
+            ReturnModel<object> result = new ReturnModel<object>(burgers, 200, "All burger returned");
+            return result;
         }
 
         [HttpGet("{id}")]
         public async Task<ReturnModel<Burger>> GetBurgerById(Guid id) {
             Burger burger = await Service.GetBurgerById(id);
-            return new ReturnModel<Burger>(burger, 200, "Burger returned");
+            ReturnModel<Burger> result = new ReturnModel<Burger>(burger, 200, "All burger returned");
+            return result;
         }
     }
 }

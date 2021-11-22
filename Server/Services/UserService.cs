@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Server.Models;
 
@@ -13,22 +12,21 @@ namespace Server.Services {
             Context = context;
         }
 
-        public async Task<List<User>> GetUsers() {
-            return await Context.Users.ToListAsync();
-        }
-
         public async Task<User> GetUserById(Guid id) {
-            return await Context.Users.SingleOrDefaultAsync(u => u.Id == id);
+            return await GetUser(u => u.Id == id);
         }
 
-        public async Task AddUser(User user) {
+        public async Task<User> GetUserByCredentials(UserCredentials credentials) {
+            return await GetUser(u => u.Name == credentials.Name && u.Password == credentials.Password);
+        }
+
+        private async Task<User> GetUser(Expression<Func<User, bool>> predicate) =>
+            await Context.Users.SingleOrDefaultAsync(predicate);
+
+        public async Task<Guid> AddUser(User user) {
             await Context.Users.AddAsync(user);
             await Context.SaveChangesAsync();
-        }
-
-        public async Task<User> GetUserByCredentials(string name, string password) {
-            return await Context.Users.
-                SingleOrDefaultAsync(u => u.Name == name && u.Password == password);
+            return user.Id;
         }
     }
 }

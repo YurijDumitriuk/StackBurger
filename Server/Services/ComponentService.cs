@@ -7,6 +7,7 @@ using Server.Models;
 
 namespace Server.Services {
     public class ComponentService {
+
         private StackBurgerContext Context { get; }
         public ComponentService(StackBurgerContext context) {
             Context = context;
