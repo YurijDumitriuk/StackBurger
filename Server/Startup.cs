@@ -5,9 +5,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
 using Server.Authentication;
-
 using Server.Services;
+using Server.Validation;
 
 namespace Server {
     public class Startup {
@@ -21,8 +22,14 @@ namespace Server {
             services.AddDbContext<StackBurgerContext>(
                 options => options.UseSqlServer(connectionString)    
             );
+
             services.AddCors();
-            services.AddControllers();
+
+            services.AddControllers()
+                .AddFluentValidation(
+                    conf => conf.RegisterValidatorsFromAssemblyContaining<Startup>()
+                 );
+
             services.AddTransient<UserService>();
             services.AddTransient<BurgerService>();
             services.AddTransient<ComponentService>();

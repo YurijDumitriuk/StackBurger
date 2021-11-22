@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Server.Services;
@@ -14,26 +13,33 @@ namespace Server.Controllers {
             Service = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllUsers() {
-            return Ok(await Service.GetUsers());
-        }
-
         [HttpGet("{id}")]
-        public async Task<IActionResult> Details(Guid id) {
-            return Ok(await Service.GetUserById(id));
+        public async Task<ReturnModel<User>> Details(Guid id) {
+            User user = await Service.GetUserById(id);
+            ReturnModel<User> result = new ReturnModel<User>(user, 200, "User info returned");
+            if (user == null) {
+                result.Message = "Invalid user id";
+                result.Status = 404;
+            }
+            return result;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(User user) {
-            await Service.AddUser(user);
-            return Ok();
+        public async Task<ReturnModel<Guid>> Register(User user) {
+            Guid id = await Service.AddUser(user);
+            ReturnModel<Guid> result = new ReturnModel<Guid>(id, 200, "Registration successful");
+            return result; 
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(User user) {
-            user = await Service.GetUserByCredentials(user.Name, user.Password);
-            return user != null ? Ok(user) : Unauthorized();
+        public async Task<ReturnModel<User>> Login(UserCredentials credentials) {
+            User user = await Service.GetUserByCredentials(credentials);
+            ReturnModel<User> result = new ReturnModel<User>(user, 200, "User info returned");
+            if (user == null) {
+                result.Message = "Invalid login or password";
+                result.Status = 404;
+            }
+            return result;
         }
     }
 }
