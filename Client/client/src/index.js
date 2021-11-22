@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import Login from "./routes/Login";
 import Registration from "./routes/Registration";
+import Profile from "./routes/Profile"
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </StrictMode>
   </BrowserRouter>,
