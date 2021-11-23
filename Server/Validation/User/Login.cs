@@ -2,8 +2,8 @@
 using Server.Models;
 
 namespace Server.Validation {
-    public class UserCredentialValidator: AbstractValidator<UserCredentials> {
-        public UserCredentialValidator() {
+    public class UserLoginValidator: AbstractValidator<UserLoginModel> {
+        public UserLoginValidator() {
             RuleFor(u => u.Name)
                 .NotEmpty().WithMessage("Name is required!")
                 .MinimumLength(2).WithMessage("At least two characters!");
