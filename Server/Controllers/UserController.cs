@@ -19,7 +19,7 @@ namespace Server.Controllers {
         }
 
         [HttpPost("login")]
-        public async Task<ReturnModel<User>> Login(UserLoginModel model) {
+        public async Task<ReturnModel<Guid?>> Login(UserLoginModel model) {
             return await Service.GetUserByLoginModel(model); ;
         }
 

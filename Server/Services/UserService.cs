@@ -19,11 +19,13 @@ namespace Server.Services {
             return new ReturnModel<User>(null, 404, "Invalid user id");
         }
 
-        public async Task<ReturnModel<User>> GetUserByLoginModel(UserLoginModel model) {
-            User user = await GetUser(u => u.Name == model.Name && u.Password == model.Password);
-            if (user != null)
-                return new ReturnModel<User>(user, 200, "Authorization successful");
-            return new ReturnModel<User>(null, 404, "Incorrect login or password");
+        public async Task<ReturnModel<Guid?>> GetUserByLoginModel(UserLoginModel model) {
+            User user = await GetUser(u => u.Name == model.Name);
+            if (user == null)
+                return new ReturnModel<Guid?>(null, 404, "Incorrect login");
+            if(!BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
+                return new ReturnModel<Guid?>(null, 404, "Incorrect password");
+            return new ReturnModel<Guid?>(user.Id, 200, "Authorization successful");
         }
 
         public async Task<ReturnModel<Guid?>> AddUser(UserRegisterModel model) {
@@ -34,6 +36,7 @@ namespace Server.Services {
             }
 
             User user = new User(model);
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             await Context.Users.AddAsync(user);
             await Context.SaveChangesAsync();
 
