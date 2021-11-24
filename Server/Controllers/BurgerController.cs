@@ -27,5 +27,12 @@ namespace Server.Controllers {
             ReturnModel<Burger> result = new ReturnModel<Burger>(burger, 200, "All burger returned");
             return result;
         }
+
+        [HttpPost]
+        public async Task<ReturnModel<Guid>> Construct(BurgerPostModel model) {
+            Guid id = await Service.AddBurger(model);
+            ReturnModel<Guid> result = new ReturnModel<Guid>(id, 200, "Burger has been added");
+            return result;
+        }
     }
 }

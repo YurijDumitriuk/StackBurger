@@ -40,7 +40,7 @@ namespace Server.Services {
             await Context.Users.AddAsync(user);
             await Context.SaveChangesAsync();
 
-            return new ReturnModel<Guid?>(user.Id, 400, "Registration successful");
+            return new ReturnModel<Guid?>(user.Id, 200, "Registration successful");
         }
 
         private async Task<User> GetUser(Expression<Func<User, bool>> predicate) =>
