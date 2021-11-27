@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import Login from "./routes/Login";
 import Registration from "./routes/Registration";
 import Profile from "./routes/Profile"
+import ProfileHistory from "./routes/ProfileHistory"
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -18,6 +19,7 @@ ReactDOM.render(
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="profile_history" element={<ProfileHistory />} />
       </Routes>
     </StrictMode>
   </BrowserRouter>,

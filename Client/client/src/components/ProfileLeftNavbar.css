@@ -1,0 +1,41 @@
+.Left {
+    flex: 25%;
+    align-items: stretch;
+  }
+  
+  .ProfileNavbar{
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content:space-around;
+    align-items:flex-start;
+    font-size: 24px;
+    line-height: 47px;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: capitalize;
+    
+  
+  }
+  .ProfileNavigationItems{
+    list-style-type:none ;
+    
+  }
+  .ProfileNavigationItems .ProfileListItem{
+    padding: 20px 20px;
+    align-content: space-between;
+    text-align: center;   
+  }
+  
+  .ProfileListItem a{
+    color: white;
+    display: block;
+    text-decoration: none;
+    
+  }
+  .ProfileListItem a:hover{
+    color: #BED9A6;
+    text-decoration: underline;
+    text-shadow: 0px 8px 15px #BED9A6;
+  }

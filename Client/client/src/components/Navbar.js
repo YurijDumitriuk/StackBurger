@@ -54,13 +54,15 @@ class Navbar extends Component{
 							</li>
 						</Link>
 					}
-					<li className="ListItem">
-						<div>
-							<a href="#">
-								<img alt="cart" className="NavbarCart" src={cart} />
-							</a>
-						</div>
-					</li>
+					<Link to="/profile">
+						<li className="ListItem">
+							<div>
+								<a href="#">
+									<img alt="cart" className="NavbarCart" src={cart} />
+								</a>
+							</div>
+						</li>
+					</Link>
 				</ul>
 			</nav>
 		);
