@@ -19,7 +19,6 @@ class Navbar extends Component{
 							<a href="#">MENU</a>
 						</li>
 					</Link>
-<<<<<<< Updated upstream
 					<Link to="/login">
 						<li className="ListItem">
 							<a href="#">LOGIN</a>
@@ -30,36 +29,6 @@ class Navbar extends Component{
 							<a href="#">REGISTRATION</a>
 						</li>
 					</Link>
-=======
-					{CheckAurhorization() === true &&
-						<Link to="/login" onClick={() => LogOut()}>
-							<li className="ListItem">
-								<a href="#">LOG OUT</a>
-							</li>
-						</Link>
-					}
-					{CheckAurhorization() === true &&
-						<Link to="/profile">
-							<li className="ListItem">
-								<a href="#">PROFILE</a>
-							</li>
-						</Link>
-					}
-					{CheckAurhorization() === false &&
-						<Link to="/login">
-							<li className="ListItem">
-								<a href="#">LOGIN</a>
-							</li>
-						</Link>
-					}
-					{CheckAurhorization() === false &&
-						<Link to="/registration">
-							<li className="ListItem">
-								<a href="#">REGISTRATION</a>
-							</li>
-						</Link>
-					}
->>>>>>> Stashed changes
 					<li className="ListItem">
 						<div>
 							<a href="#">
