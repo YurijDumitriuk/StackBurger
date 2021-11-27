@@ -7,21 +7,18 @@ namespace Server.Models {
         public bool IsCustom { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public Guid UserId { get; set; }
 
         public List<Order> Orders { get; set; }
         public List<Component> Components { get; set; }
         public Burger() {
             Components = new List<Component>();
-            Orders = new List<Order>();
         }
 
-        public Burger(bool isCustom, string name, string description, List<Component> components)
-        {
-            Id = new Guid();
-            IsCustom = isCustom;
-            Name = name;
-            Description = description;
-            Components = components;
+        public Burger(BurgerPostModel model) {
+            Id = Guid.NewGuid();
+            Name = model.Name;
+            UserId = model.UserId;
         }
     }
 }

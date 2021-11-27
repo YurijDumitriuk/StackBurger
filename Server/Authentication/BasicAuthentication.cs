@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 namespace Server.Authentication {
     public class BasicAuthentication {
 
-        private readonly RequestDelegate next;
+        private RequestDelegate Next { get; }
         public BasicAuthentication(RequestDelegate next) =>
-            this.next = next;
+            Next = next;
 
         public async Task InvokeAsync(HttpContext context) {
             string header = context.Request.Headers["Authorization"];
@@ -17,7 +17,7 @@ namespace Server.Authentication {
                         Convert.FromBase64String(header.Split(' ')[1])
                     ).Split(':');
                 if(IsAutorized(parameter[0], parameter[1])) {
-                    await next(context);
+                    await Next(context);
                     return;
                 }
             }

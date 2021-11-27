@@ -14,32 +14,18 @@ namespace Server.Controllers {
         }
 
         [HttpGet("{id}")]
-        public async Task<ReturnModel<User>> Details(Guid id) {
-            User user = await Service.GetUserById(id);
-            ReturnModel<User> result = new ReturnModel<User>(user, 200, "User info returned");
-            if (user == null) {
-                result.Message = "Invalid user id";
-                result.Status = 404;
-            }
-            return result;
-        }
-
-        [HttpPost("register")]
-        public async Task<ReturnModel<Guid>> Register(User user) {
-            Guid id = await Service.AddUser(user);
-            ReturnModel<Guid> result = new ReturnModel<Guid>(id, 200, "Registration successful");
-            return result; 
+        public async Task<ReturnModel<User>> Profile(Guid id) {
+            return await Service.GetUserById(id);
         }
 
         [HttpPost("login")]
-        public async Task<ReturnModel<User>> Login(UserCredentials credentials) {
-            User user = await Service.GetUserByCredentials(credentials);
-            ReturnModel<User> result = new ReturnModel<User>(user, 200, "User info returned");
-            if (user == null) {
-                result.Message = "Invalid login or password";
-                result.Status = 404;
-            }
-            return result;
+        public async Task<ReturnModel<Guid?>> Login(UserLoginModel model) {
+            return await Service.GetUserByLoginModel(model); ;
+        }
+
+        [HttpPost("register")]
+        public async Task<ReturnModel<Guid?>> Register(UserRegisterModel model) {
+            return await Service.AddUser(model);
         }
     }
 }

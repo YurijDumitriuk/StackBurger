@@ -9,6 +9,7 @@ using FluentValidation.AspNetCore;
 using Server.Authentication;
 using Server.Services;
 using Server.Validation;
+using Server.Checker;
 
 namespace Server {
     public class Startup {
@@ -33,6 +34,7 @@ namespace Server {
             services.AddTransient<UserService>();
             services.AddTransient<BurgerService>();
             services.AddTransient<ComponentService>();
+            services.AddTransient<OrderService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -45,7 +47,9 @@ namespace Server {
             if (env.IsDevelopment())         
                 app.UseDeveloperExceptionPage();
 
+            app.UseDatabaseConnectivityChecker();
             //app.UseBasicAuthentication();
+
             app.UseRouting();
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
