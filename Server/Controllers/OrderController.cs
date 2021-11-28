@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
@@ -14,34 +13,20 @@ namespace Server.Controllers {
             Service = service;
         }
 
-        
-        [HttpGet]
-        public async Task<IActionResult> GetOrders() {
-            List<Order> result = await Service.GetOrders();
-            return Ok(result);
+        [HttpGet("{userId}")]
+        public async Task<ReturnModel<object>> UserOrders(Guid? userId) {
+            return await Service.GetOrdersByUserId(userId);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ReturnModel<Object>> GetOrderById(Guid id)
-        {
-            var orders = await Service.GetOrdersByUserId(id);
-            ReturnModel<object> result = new ReturnModel<object>(orders, 200, "All orders retuned");
-            return result;
+        [HttpGet("info/{id}")]
+        public async Task<ReturnModel<Order>> OrderInfo(Guid? id) {
+            return await Service.GetOrderById(id);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddOrder() {
-            Order tmp = new Order {
-                UserId = new Guid("061DCFBF-CAD3-4B22-313F-08D9AC2E6974"),
-                Date = DateTime.Now,
-                Burgers = new List<Burger> {
-                    new Burger { Id = new Guid("BACF5B79-E74A-432B-9849-021B8A411DC5")},
-                    new Burger { Id = new Guid("23ECC57F-486A-440F-A18D-11AA3C274602")},
-                    new Burger { Id = new Guid("7555830E-EE91-4515-98F0-14224746667D")}
-                }
-            };
-            Guid result = await Service.AddOrder(tmp);
-            return Ok(result);
+        public async Task<ReturnModel<Guid>> MakeOrder(OrderPostModel model) {
+            string cd = DateTime.Now.ToString();
+            return await Service.AddOrder(model);
         }
     }
 }
