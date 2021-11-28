@@ -27,6 +27,7 @@ namespace Server.Services {
 
         private async Task<object> GetBurgers(Guid? userId = null) {
             List<Burger> burgers = new List<Burger>();
+
             List<Guid> ids = await Context.Burgers
                 .Where(b => b.UserId == userId)
                 .Select(b => b.Id).ToListAsync();
@@ -66,7 +67,7 @@ namespace Server.Services {
             return burger;
         }
 
-        public async Task<ReturnModel<Guid?>> AddBurger(BurgerPostModel model) {
+        public async Task<Guid?> AddBurger(BurgerPostModel model) {
             Burger burger;
             try
             {
@@ -88,7 +89,7 @@ namespace Server.Services {
             {
                 return null;
             }
-            return new ReturnModel<Guid?>(burger.Id, 200, "Burger has been added");
+            return burger.Id;
         }
     }
 }
