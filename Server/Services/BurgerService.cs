@@ -57,17 +57,28 @@ namespace Server.Services {
             return burger;
         }
 
-        public async Task<Guid> AddBurger(BurgerPostModel model) {
-            Burger burger = new Burger(model);
-            List<BurgerComponent> components = new List<BurgerComponent>();
-            for(int i = 0; i < model.ComponentsIds.Count; i++)
-                components.Add(new BurgerComponent { 
-                    BurgerId = burger.Id, ComponentId = model.ComponentsIds[i], SerialNumber = i
-                });
+        public async Task<Guid?> AddBurger(BurgerPostModel model) {
+            Burger burger;
+            try
+            {
+                burger = new Burger(model);
+                List<BurgerComponent> components = new List<BurgerComponent>();
+                for (int i = 0; i < model.ComponentsIds.Count; i++)
+                    components.Add(new BurgerComponent
+                    {
+                        BurgerId = burger.Id,
+                        ComponentId = model.ComponentsIds[i],
+                        SerialNumber = i
+                    });
 
-            await Context.Burgers.AddAsync(burger);
-            await Context.BurgersComponents.AddRangeAsync(components);
-            await Context.SaveChangesAsync();
+                await Context.Burgers.AddAsync(burger);
+                await Context.BurgersComponents.AddRangeAsync(components);
+                await Context.SaveChangesAsync();
+            }
+            catch
+            {
+                return null;
+            }
             return burger.Id;
         }
     }

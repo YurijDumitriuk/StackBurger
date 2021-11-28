@@ -34,6 +34,10 @@ async function InitializeData(setLoading) {
   else {
     burgers = Data.data
     //console.log(burgers);
+    if(burgers === null){
+      itemList.push(<h1>No burgers received...</h1>)
+    }
+    else{
     burgers.forEach((item,index)=>{
       var componentsList = "";
       item.components.forEach((c,ind)=>{
@@ -47,6 +51,7 @@ async function InitializeData(setLoading) {
       })
       itemList.push(<BurgerCard name={item.name} components={componentsList} calories={item.calories} price={item.price} />)
     })
+    }
     setLoading(false)
   }
 

@@ -43,7 +43,9 @@ namespace Server.Services {
             return new ReturnModel<Guid?>(user.Id, 200, "Registration successful");
         }
 
-        private async Task<User> GetUser(Expression<Func<User, bool>> predicate) =>
-            await Context.Users.SingleOrDefaultAsync(predicate);
+        private async Task<User> GetUser(Expression<Func<User, bool>> predicate)
+        {
+            return await Context.Users.SingleOrDefaultAsync(predicate);
+        }
     }
 }
