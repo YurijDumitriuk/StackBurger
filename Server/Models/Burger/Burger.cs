@@ -7,7 +7,8 @@ namespace Server.Models {
         public bool IsCustom { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Guid? UserId { get; set; }
+
+        //public Guid UserId { get; set; }
 
         public List<Order> Orders { get; set; }
         public List<Component> Components { get; set; }
@@ -15,10 +16,10 @@ namespace Server.Models {
             Components = new List<Component>();
         }
 
-        public Burger(BurgerPostModel model) {
+        public Burger(BurgerPostModel model): this() {
             Id = Guid.NewGuid();
             Name = model.Name;
-            UserId = model.UserId;
+            //UserId = model.UserId;
         }
     }
 }

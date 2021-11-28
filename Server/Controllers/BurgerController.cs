@@ -30,8 +30,10 @@ namespace Server.Controllers {
         }
 
         [HttpPost]
-        public async Task<ReturnModel<Guid>> Construct(BurgerPostModel model) {
-            return await Service.AddBurger(model);
+        public async Task<ReturnModel<Guid?>> Construct(BurgerPostModel model) {
+            Guid? id = await Service.AddBurger(model);
+            ReturnModel<Guid?> result = new ReturnModel<Guid?>(id, 200, "Burger has been added");
+            return result;
         }
     }
 }

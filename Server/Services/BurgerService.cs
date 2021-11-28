@@ -66,17 +66,29 @@ namespace Server.Services {
             return burger;
         }
 
-        public async Task<ReturnModel<Guid>> AddBurger(BurgerPostModel model) {
-            Burger burger = new Burger(model);
-            List<BurgerComponent> components = new List<BurgerComponent>();
-            for(int i = 0; i < model.ComponentsIds.Count; i++)
-                components.Add(new BurgerComponent { 
-                    BurgerId = burger.Id, ComponentId = model.ComponentsIds[i], SerialNumber = i
-                });
-            await Context.Burgers.AddAsync(burger);
-            await Context.BurgersComponents.AddRangeAsync(components);
-            await Context.SaveChangesAsync();
-            return new ReturnModel<Guid>(burger.Id, 200, "Burger has been added");
+        public async Task<ReturnModel<Guid?>> AddBurger(BurgerPostModel model) {
+            Burger burger;
+            try
+            {
+                burger = new Burger(model);
+                List<BurgerComponent> components = new List<BurgerComponent>();
+                for (int i = 0; i < model.ComponentsIds.Count; i++)
+                    components.Add(new BurgerComponent
+                    {
+                        BurgerId = burger.Id,
+                        ComponentId = model.ComponentsIds[i],
+                        SerialNumber = i
+                    });
+
+                await Context.Burgers.AddAsync(burger);
+                await Context.BurgersComponents.AddRangeAsync(components);
+                await Context.SaveChangesAsync();
+            }
+            catch
+            {
+                return null;
+            }
+            return new ReturnModel<Guid?>(burger.Id, 200, "Burger has been added");
         }
     }
 }

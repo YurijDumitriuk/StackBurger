@@ -21,6 +21,14 @@ namespace Server.Controllers {
             return Ok(result);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ReturnModel<Object>> GetOrderById(Guid id)
+        {
+            var orders = await Service.GetOrdersByUserId(id);
+            ReturnModel<object> result = new ReturnModel<object>(orders, 200, "All orders retuned");
+            return result;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddOrder() {
             Order tmp = new Order {

@@ -10,7 +10,7 @@ namespace Server.ModelsConfigurations {
             builder.Property(b => b.IsCustom).HasColumnName("custom");
             builder.Property(b => b.Name).HasColumnName("name");
             builder.Property(b => b.Description).HasColumnName("description");
-            builder.Property(b => b.UserId).HasColumnName("user_id");
+            //builder.Property(b => b.UserId).HasColumnName("user_id");
             builder.HasKey(b => b.Id);
         }
     }
