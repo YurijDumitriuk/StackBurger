@@ -1,0 +1,125 @@
+/*Обнуление*/
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+  *,*:before,*:after{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  :focus,:active{outline: none;}
+  a:focus,a:active{outline: none;}
+  
+  nav,footer,header,aside{display: block;}
+  
+  html,body{
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  input,button,textarea{font-family:inherit;}
+  
+  input::-ms-clear{display: none;}
+  button{cursor: pointer;}
+  button::-moz-focus-inner {padding:0;border:0;}
+  a, a:visited{text-decoration: none;}
+  a:hover{text-decoration: none;}
+  ul li{list-style: none;}
+  img{vertical-align: top;}
+  
+  h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+  /*--------------------*/
+
+  .OrderCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-block-start: 1em;
+    text-align: center;
+    width: 250px;
+    background-color: #000000;
+    border: 1px solid #000000;
+    border-radius: 35px;
+    mix-blend-mode: soft-light;
+    box-shadow: 0px 10px 30px #BED9A6;
+  }
+  .OrderBurgerImage {
+    margin-left:auto;
+    margin-right: auto;
+    margin-block-start: 1em;
+    max-width: 70%;
+    align-content: center;
+  }
+  
+  .OrderBurgerName {
+    padding: 0px 20px 20px;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 33px;
+    padding-left: 5px;
+    padding-right: 15px;
+    line-height: 45px;
+    color: #ffffff;
+    width: 100%;
+  }
+  
+  .OrderPriceButton {
+    width: 220px;
+    height: 50px;
+    background-color: black;
+    border-radius: 35px;
+    border-color: black;
+    font-family: Noto Sans;
+    margin-block-end: 1em;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 23px;
+    color: #ffffff;
+  
+  }
+  
+
+  .ChangeCountWrapper{
+    width: 55%;
+    margin-left:auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(27,79,0);
+    justify-content: space-between;
+    align-items: center;
+    border-radius:30%;
+    z-index: 100;
+   }
+   .btn{
+    width: 36px;
+    height: 36px;
+    border-radius: 45%;
+    display: flex;
+    color:rgb(27,79,0);
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: rgb(160,199,126);
+    border: 1px solid rgb(160,199,126);
+   }
+
+   .btn:hover {
+    box-shadow: 0px 3px 30px #BED9A6;
+   }
+   .count{
+    font-size: 20px;
+    font-family: ‘Open Sans’;
+    color: white;
+    
+   }

@@ -62,11 +62,11 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
   padding: 20px 20px;
 }
 
-.Navbar a{
+.ListItem a{
   color: white;
   text-decoration: none;
 }
-.Navbar a:hover{
+.ListItem a:hover{
   color: #BED9A6;
   text-decoration: underline;
   text-shadow: 0px 8px 15px #BED9A6;
