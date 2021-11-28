@@ -67,7 +67,7 @@ namespace Server.Services {
             return burger;
         }
 
-        public async Task<Guid?> AddBurger(BurgerPostModel model) {
+        public async Task<ReturnModel<Guid?>> AddBurger(BurgerPostModel model) {
             Burger burger;
             try
             {
@@ -89,7 +89,7 @@ namespace Server.Services {
             {
                 return null;
             }
-            return burger.Id;
+            return new ReturnModel<Guid?>(burger.Id, 200, "Burger has been added"); ;
         }
     }
 }
