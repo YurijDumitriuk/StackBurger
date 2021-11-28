@@ -15,17 +15,18 @@ namespace Server.Controllers {
         }
 
         [HttpGet]
-        public async Task<ReturnModel<object>> GetBurgers() {
-            var burgers = await Service.GetBurgers();
-            ReturnModel<object> result = new ReturnModel<object>(burgers, 200, "All burger returned");
-            return result;
+        public async Task<ReturnModel<object>> SampleBurgers() {
+            return await Service.GetSampleBurgers();
+        }
+
+        [HttpGet("custom/{userId}")]
+        public async Task<ReturnModel<object>> CustomBurgers(Guid? userId) {
+            return await Service.GetCustomBurgersByUserId(userId);
         }
 
         [HttpGet("{id}")]
-        public async Task<ReturnModel<Burger>> GetBurgerById(Guid id) {
-            Burger burger = await Service.GetBurgerById(id);
-            ReturnModel<Burger> result = new ReturnModel<Burger>(burger, 200, "All burger returned");
-            return result;
+        public async Task<ReturnModel<Burger>> BurgerInfo(Guid? id) {
+            return await Service.GetBurgerById(id);
         }
 
         [HttpPost]

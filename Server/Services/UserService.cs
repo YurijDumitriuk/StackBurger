@@ -14,12 +14,12 @@ namespace Server.Services {
 
         public async Task<ReturnModel<User>> GetUserById(Guid id) {
             User user = await GetUser(u => u.Id == id);
-            if (user != null)
-                return new ReturnModel<User>(user, 200, "User info returned");
-            return new ReturnModel<User>(null, 404, "Invalid user id");
+            if (user == null)
+                return new ReturnModel<User>(null, 404, "Invalid user id");
+            return new ReturnModel<User>(user, 200, "User info returned");
         }
 
-        public async Task<ReturnModel<Guid?>> GetUserByLoginModel(UserLoginModel model) {
+        public async Task<ReturnModel<Guid?>> GetUserIdByLoginModel(UserLoginModel model) {
             User user = await GetUser(u => u.Name == model.Name);
             if (user == null)
                 return new ReturnModel<Guid?>(null, 404, "Incorrect login");
@@ -34,12 +34,10 @@ namespace Server.Services {
             } else if (await GetUser(u => u.Phone == model.Phone) != null) {
                 return new ReturnModel<Guid?>(null, 400, "User with this phone is already registered");
             }
-
             User user = new User(model);
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             await Context.Users.AddAsync(user);
             await Context.SaveChangesAsync();
-
             return new ReturnModel<Guid?>(user.Id, 200, "Registration successful");
         }
 

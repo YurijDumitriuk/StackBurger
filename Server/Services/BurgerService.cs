@@ -13,21 +13,28 @@ namespace Server.Services {
             Context = context;
         }
 
-        public async Task<object> GetBurgers() {
+        public async Task<ReturnModel<object>> GetSampleBurgers() {
+            object burgers = await GetBurgers();
+            return new ReturnModel<object>(burgers, 200, "All burger returned");
+        }
+
+        public async Task<ReturnModel<object>> GetCustomBurgersByUserId(Guid? userId) {
+            if (userId == null)
+                return new ReturnModel<object>(null, 400, "Incorrect user id");
+            object burgers = await GetBurgers(userId);
+            return new ReturnModel<object>(burgers, 200, "Burger returned");
+        }
+
+        private async Task<object> GetBurgers(Guid? userId = null) {
             List<Burger> burgers = new List<Burger>();
-            try
-            {
-                List<Guid> ids = await Context.Burgers.Select(b => b.Id).ToListAsync();
-                foreach (Guid id in ids)
-                    burgers.Add(await GetBurgerById(id));
-            }
-            catch
-            {
-                return null;
-            }
+            List<Guid> ids = await Context.Burgers
+                .Where(b => b.UserId == userId)
+                .Select(b => b.Id).ToListAsync();
+            foreach (Guid id in ids)
+                burgers.Add(await GetBurger(id));
             var result = burgers.Select(b => new {
                 Id = b.Id,
-                Name = b.Name, 
+                Name = b.Name,
                 Descripton = b.Description,
                 Components = b.Components.Select(c => c.Name).ToList(),
                 Price = b.Components.Sum(c => c.Price),
@@ -36,28 +43,30 @@ namespace Server.Services {
             return result;
         }
 
-        public async Task<Burger> GetBurgerById(Guid? id) {
-            Burger burger;
-            try
-            {
-                burger = await Context.Burgers.
-                    SingleAsync(b => b.Id == id);
-                List<Component> components = await Context.BurgersComponents
-                    .Where(bc => bc.BurgerId == id)
-                    .OrderBy(bc => bc.SerialNumber)
-                    .Select(bc => Context.Components
-                        .Single(c => c.Id == bc.ComponentId))
-                    .ToListAsync();
-                burger.Components = components;
-            }
-            catch
-            {
+        public async Task<ReturnModel<Burger>> GetBurgerById(Guid? id) {
+            if (id == null)
+                return new ReturnModel<Burger>(null, 400, "Incorrect burger id");
+            Burger burger = await GetBurger(id);
+            if(burger == null)
+                return new ReturnModel<Burger>(null, 404, "There is no such a burger");
+            return new ReturnModel<Burger>(burger, 200, "Burger returned");
+        }
+
+        private async Task<Burger> GetBurger(Guid? id) {
+            Burger burger = await Context.Burgers.
+                SingleOrDefaultAsync(b => b.Id == id);
+            if (burger == null)
                 return null;
-            }
+            burger.Components = await Context.BurgersComponents
+                .Where(bc => bc.BurgerId == burger.Id)
+                .OrderBy(bc => bc.SerialNumber)
+                .Select(bc => Context.Components
+                    .Single(c => c.Id == bc.ComponentId))
+                .ToListAsync();
             return burger;
         }
 
-        public async Task<Guid?> AddBurger(BurgerPostModel model) {
+        public async Task<ReturnModel<Guid?>> AddBurger(BurgerPostModel model) {
             Burger burger;
             try
             {
@@ -79,7 +88,7 @@ namespace Server.Services {
             {
                 return null;
             }
-            return burger.Id;
+            return new ReturnModel<Guid?>(burger.Id, 200, "Burger has been added");
         }
     }
 }

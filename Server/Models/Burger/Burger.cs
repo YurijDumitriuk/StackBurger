@@ -7,6 +7,7 @@ namespace Server.Models {
         public bool IsCustom { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
         //public Guid UserId { get; set; }
 
         public List<Order> Orders { get; set; }
