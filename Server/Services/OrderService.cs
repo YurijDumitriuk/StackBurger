@@ -66,23 +66,31 @@ namespace Server.Services {
             return order;
         }
 
-        public async Task<ReturnModel<Guid>> AddOrder(OrderPostModel model) {
-            Order order = new Order(model);
-            List<OrderBurger> burgers = new List<OrderBurger>();
-            for (int i = 0; i < model.BurgersIds.Count; i++)
-                burgers.Add(new OrderBurger {
-                    OrderId = order.Id,
-                    BurgerId = model.BurgersIds[i]
-                });
-
+        public async Task<ReturnModel<Guid?>> AddOrder(OrderPostModel model) {
+            Order order = null;
             try {
+                if (!await Context.Users.AnyAsync(u => u.Id == model.UserId))
+                    return new ReturnModel<Guid?>(null, 404, "There is no user with posted id");
+                order = new Order(model);
+
+                List<OrderBurger> burgers = new List<OrderBurger>();
+                for (int i = 0; i < model.BurgersIds.Count; i++) {
+                    if (!await Context.Burgers.AnyAsync(b => b.Id == model.BurgersIds[i]))
+                        return new ReturnModel<Guid?>(null, 404, "There is no burger with posted id");
+
+                    burgers.Add(new OrderBurger {
+                        OrderId = order.Id,
+                        BurgerId = model.BurgersIds[i]
+                    });
+                }
+
                 await Context.Orders.AddAsync(order);
                 await Context.OrdersBurgers.AddRangeAsync(burgers);
                 await Context.SaveChangesAsync();
             } catch {
-                return new ReturnModel<Guid>(Guid.Empty, 500, "Internal error have occured");
+                return new ReturnModel<Guid?>(null, 500, "Internal error have occured");
             }
-            return new ReturnModel<Guid>(order.Id, 200, "Burger has been added");
+            return new ReturnModel<Guid?>(order.Id, 200, "Burger has been added");
         }
     }
 }
