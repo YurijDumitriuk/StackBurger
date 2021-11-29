@@ -68,28 +68,31 @@ namespace Server.Services {
         }
 
         public async Task<ReturnModel<Guid?>> AddBurger(BurgerPostModel model) {
-            Burger burger;
-            try
-            {
+            Burger burger = null;
+            try {
+                if (!await Context.Users.AnyAsync(u => u.Id == model.UserId))
+                    return new ReturnModel<Guid?>(null, 404, "There is no user with posted id");
                 burger = new Burger(model);
+
                 List<BurgerComponent> components = new List<BurgerComponent>();
-                for (int i = 0; i < model.ComponentsIds.Count; i++)
-                    components.Add(new BurgerComponent
-                    {
+                for (int i = 0; i < model.ComponentsIds.Count; i++) { 
+                    if (!await Context.Components.AnyAsync(c => c.Id == model.ComponentsIds[i]))
+                        return new ReturnModel<Guid?>(null, 404, "There is no component with posted id");
+ 
+                    components.Add(new BurgerComponent {
                         BurgerId = burger.Id,
                         ComponentId = model.ComponentsIds[i],
                         SerialNumber = i
                     });
+                }
 
                 await Context.Burgers.AddAsync(burger);
                 await Context.BurgersComponents.AddRangeAsync(components);
                 await Context.SaveChangesAsync();
+            } catch {
+                return new ReturnModel<Guid?>(null, 500, "Internal error have occured"); ;
             }
-            catch
-            {
-                return null;
-            }
-            return new ReturnModel<Guid?>(burger.Id, 200, "Burger has been added"); ;
+            return new ReturnModel<Guid?>(burger.Id, 200, "Burger has been added");
         }
     }
 }
