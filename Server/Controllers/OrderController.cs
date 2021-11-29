@@ -24,8 +24,7 @@ namespace Server.Controllers {
         }
 
         [HttpPost]
-        public async Task<ReturnModel<Guid>> MakeOrder(OrderPostModel model) {
-            string cd = DateTime.Now.ToString();
+        public async Task<ReturnModel<Guid?>> MakeOrder(OrderPostModel model) {
             return await Service.AddOrder(model);
         }
     }
