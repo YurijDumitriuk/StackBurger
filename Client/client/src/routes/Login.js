@@ -4,19 +4,16 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { UserCredentials } from "../models/UserCredentials";
 import { environment } from "../env";
+import { useState } from "react";
 
 var name, password;
-var bcrypt = require('bcryptjs');
 
 export default function Login() {
+
+    const [nameE, setNameE] = useState(false);
+    const [passwordE, setPasswordE] = useState(false);
     
     const navigate = useNavigate();
-
-    async function HashPassword(password){
-        const salt = await bcrypt.genSalt(6);
-        const hashed = await bcrypt.hash(password, salt);
-        return hashed;
-    }
 
     async function SendData(user){
         const requestOptions = {
@@ -29,11 +26,25 @@ export default function Login() {
         return data
     }
 
+    function HandleErrors(errors){
+        if(errors.Name === undefined){
+            setNameE(false)
+        }
+        else{
+            setNameE(true)
+        }
+        if(errors.Password === undefined){
+            setPasswordE(false)
+        }
+        else{
+            setPasswordE(true)
+        }
+    }
+
     async function handleClick() {
-        //var hashedPassword = HashPassword(password)
         var user = new UserCredentials(name, password)
         let data;
-        //console.log(user);
+        console.log(user);
         try{ 
             data = await SendData(user);
         }
@@ -42,11 +53,13 @@ export default function Login() {
             alert("Server does not respond");
         }
         if(data.status === 200){
-            localStorage.setItem("userId", data.data.id)
+            console.log("User: ", data.data)
+            localStorage.setItem("userId", data.data)
             navigate('/profile')
         }       
         else{
-            alert(data.title)
+            HandleErrors(data.errors)
+            console.log(data)
         }
     }
 
@@ -57,16 +70,22 @@ export default function Login() {
                 <div className="LoginFormWrapper">
                     <form className="LoginForm">
                         <p className="LoginFormTitle">
-                            Welcome back
+                            Please Login
                         </p>
                         <p className="LoginFormField">
                             <input onChange={event => name = event.target.value} type="text" id="username" placeholder="Username" /*required pattern="+[0-9]{12}"*//>
                         </p>
+                        {nameE === true && 
+                            <p className="LoginFormError">Incorrect username</p>
+                        }
                         <p className="LoginFormField">
                             <input onChange={event => password = event.target.value} type="password" id="password" placeholder="Password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
                         </p>
+                        {passwordE === true && 
+                            <p className="LoginFormError">Incorrect password</p>
+                        }
                         <p className="LoginFormButton">
-                            <button className="SubmitButton" onClick={()=>{handleClick()}} id="submitbutton" type="button">ENTER</button>
+                            <button className="SubmitButton" onClick={()=>{handleClick()}} id="submitbutton" type="button">SIGN IN</button>
                         </p>
                     </form>
                 </div>

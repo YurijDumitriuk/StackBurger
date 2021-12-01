@@ -48,3 +48,17 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 .BottomMargin{
   height: 50px;
 }
+
+.ProfileFormTitle{
+  color: white;
+  margin-block-end: 1em;
+  margin-block-start: 1em;
+  font-family: Noto Sans;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 72px;
+  line-height: 0px;
+  letter-spacing: 0.05em;
+  padding-left: 0;
+  
+}

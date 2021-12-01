@@ -4,18 +4,22 @@ import Navbar from "../components/Navbar";
 import ProfileLeftNavbar from "../components/ProfileLeftNavbar";
 import OrderBurgerCard from "../components/OrderBurgerCard";
 import Order from "../components/Order";
+import {CheckAuthorization} from "../services/AutorizationService";
 export default function Profile(){
-    
-    return(
-        <div>
-            <Navbar/>
-            <div className="MainRow">
-                <ProfileLeftNavbar />
-                <Order />
-            </div>
-            <div className="BottomMargin"><p></p></div>
-        </div>
-        
-    );
+    if(CheckAuthorization()){
+        return(
+            <div>
+                <Navbar/>
+                <div className="MainRow">
+                    <ProfileLeftNavbar />
+                    <Order />
+                </div>
+                <div className="BottomMargin"><p></p></div>
+            </div>            
+        );
+    }
+    else{
+        return(<p className="ProfileFormTitle">Not found</p>)
+    }
 }
     

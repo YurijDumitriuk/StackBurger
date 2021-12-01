@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import burger from "../images/burger.png";
 import './BurgerCard.css';
+import {AddToCart} from "../services/CartService";
+import { Burger } from "../models/Burger";
 class BurgerCard extends Component {
+  onTrigger = (event) => {
+    AddToCart(new Burger(this.props.id, this.props.name, this.props.components, this.props.price));
+    this.props.handleCounterBack(1)
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="Card">
@@ -18,7 +26,7 @@ class BurgerCard extends Component {
           <p>{this.props.calories} calories</p>
         </div>
         <div className="ButtonWraper">
-          <button className="PriceButton">$ {this.props.price}</button>
+          <button onClick={this.onTrigger} className="PriceButton">$ {this.props.price}</button>
         </div>
       </div>
     );
