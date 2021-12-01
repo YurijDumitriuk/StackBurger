@@ -2,7 +2,8 @@ import './App.css';
 import BurgerCard from './components/BurgerCard.js'
 import Navbar from './components/Navbar.js'
 import { environment } from './env'
-import { useState } from 'react';
+import { useState, Component } from 'react';
+
 
 let burgers = null;
 
@@ -17,11 +18,11 @@ async function Get() {
 }
 
 
-let itemList=[];
+let itemList = [];
 
 
 
-async function InitializeData(setLoading) {
+async function InitializeData(handleCounter) {
   let Data = null;
   try { Data = await Get() }
   catch {
@@ -34,44 +35,73 @@ async function InitializeData(setLoading) {
   else {
     burgers = Data.data
     //console.log(burgers);
-    if(burgers === null){
+    if (burgers === null) {
       itemList.push(<h1>No burgers received...</h1>)
     }
-    else{
-    burgers.forEach((item,index)=>{
-      var componentsList = "";
-      item.components.forEach((c,ind)=>{
-        componentsList += c;
-        if(ind !== item.components.length - 1){        
-          componentsList += ", ";
-        }
-        else{
-          componentsList += ".";
-        }
+    else {
+      burgers.forEach((item, index) => {
+        var componentsList = "";
+        item.components.forEach((c, ind) => {
+          componentsList += c;
+          if (ind !== item.components.length - 1) {
+            componentsList += ", ";
+          }
+          else {
+            componentsList += ".";
+          }
+        })
+        itemList.push(<BurgerCard handleCounterBack={handleCounter} id={item.id} name={item.name} components={componentsList} calories={item.calories} price={item.price} />)
       })
-      itemList.push(<BurgerCard name={item.name} components={componentsList} calories={item.calories} price={item.price} />)
-    })
     }
-    setLoading(false)
+    //state({isLoading: false});
   }
 
 }
 
 
 
-export default function App() {
-  const [isLoading, setLoading] = useState(true);
-  InitializeData(setLoading)
-  if (isLoading) {
-    return <div className="App">Loading...</div>;
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      counter: localStorage.getItem("itemsCount")
+    }
   }
-  return (
+
+  handleCounterBack = (childCount) => {
+    setTimeout(() => { 
+      this.setState({counter: Number(this.state.counter) + Number(1)});
+    }, 100);
+    
+    //console.log("Counter in app: ", this.state.counter);
+  }
+
+  render() {
+    console.log("Render menu")
+    const isLoading = this.state.isLoading;
+    const counter = this.state.counter;
+    if(this.state.isLoading){
+    InitializeData(this.handleCounterBack).then(() => {
+      //console.log("Data initialized: ", this.state.isLoading)
+      this.setState({ isLoading: false });
+      //console.log("Data initialized: ", this.state.isLoading)      
+    });
+  }
+    if(this.state.isLoading === true){
+      return (<h1>Loading data</h1>); 
+    }
+    //console.log("waiting for data to be initialized") 
+    return(
       <div className="App">
-        <Navbar />
-        <div className="CardWrapper">
-          {itemList}
+          <Navbar itemCounter={this.state.counter} />
+          <div className="CardWrapper">
+          {/*<BurgerCard handleCounterBack={() => this.state.counter} id={1} name={1} components={1} calories={1} price={1} />*/}
+            {itemList}
+          </div>
         </div>
-      </div>
-  );
+    );    
+  }
 }
+
 

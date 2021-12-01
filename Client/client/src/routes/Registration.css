@@ -70,7 +70,20 @@
     line-height: 0px;
     letter-spacing: 0.05em;
     padding-left: 0;
-    
+  }
+
+  .RegistrationFormError{
+    color: red;
+    /* margin-block-end: 1em;
+    margin-block-start: 1em; */
+    font-family: Noto Sans;
+    font-style: normal;
+    /* font-weight: 800; */
+    margin: 0px auto 30px auto;
+    font-size: 30px;
+    line-height: 0px;
+    letter-spacing: 0.05em;
+    padding-left: 0;
   }
 
   .RegistrationFormField input{

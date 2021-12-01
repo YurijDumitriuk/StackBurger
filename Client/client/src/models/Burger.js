@@ -1,11 +1,9 @@
 export class Burger 
 {
-    constructor(id, custom, name, description, orders, components){
+    constructor(id, name, components, price){
         this.id = id;
-        this.custom = custom;
         this.name = name;
-        this.description = description;
-        this.orders = orders;
         this.components = components;
+        this.price = price;
     }
 }
