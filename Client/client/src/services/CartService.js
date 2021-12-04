@@ -8,8 +8,8 @@ import { useState } from "react";
 export const AddToCart = (burger) => {
     //const [items, setItemsCount] = useState(0);
     if(!CheckAuthorization()){ 
-        alert("Please login!")
-        return
+        //alert("Please login!")
+        return true
     }
     if(localStorage.getItem("itemsCount") === null){
         localStorage.setItem("itemsCount", "1");
