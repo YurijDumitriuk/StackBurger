@@ -5,6 +5,11 @@ import { CheckAuthorization } from "./AutorizationService";
 import { useState } from "react";
 
 
+export const ClearCart = () => {
+    localStorage.removeItem("itemsCount");
+    localStorage.removeItem("burgersInCart")
+}
+
 export const AddToCart = (burger) => {
     let burgers = [];
     if(!CheckAuthorization()){ 
@@ -22,10 +27,8 @@ export const AddToCart = (burger) => {
         itemsC++
         localStorage.setItem("itemsCount", itemsC.toString())
         burgers = JSON.parse(localStorage.getItem("burgersInCart"));
-        console.log(burgers);
         burgers.push(burger);
-        console.log(burgers);
     }
     localStorage.setItem("burgersInCart", JSON.stringify(burgers))
-    console.log(localStorage.getItem("burgersInCart"));
+    //console.log(localStorage.getItem("burgersInCart"));
 }

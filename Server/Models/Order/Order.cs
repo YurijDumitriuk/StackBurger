@@ -14,7 +14,7 @@ namespace Server.Models {
 
         public Order(OrderPostModel model): this() {
             Id = Guid.NewGuid();
-            Date = model.Date;
+            Date = DateTime.Now;
             UserId = model.UserId;
         }
     }
