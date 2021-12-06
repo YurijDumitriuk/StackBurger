@@ -52,7 +52,7 @@ body::-webkit-scrollbar {
   grid-template-columns: repeat(3,350px);
   column-gap: 20px;
   row-gap: 20px;
-  z-index: 100;
+  z-index: 1;
   opacity: 1;
   align-content: space-around;
   justify-items: center;

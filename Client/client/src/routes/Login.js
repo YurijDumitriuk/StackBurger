@@ -87,6 +87,9 @@ export default function Login() {
                         <p className="LoginFormButton">
                             <button className="SubmitButton" onClick={()=>{handleClick()}} id="submitbutton" type="button">SIGN IN</button>
                         </p>
+                        <p className="LoginToRegister">
+                            Don't have an account? <a href="/registration" className="LoginToRegisterLink">Register</a>
+                        </p>
                     </form>
                 </div>
             </div>

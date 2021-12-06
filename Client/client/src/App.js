@@ -76,7 +76,10 @@ export default class App extends Component {
       isLoading: true,
       counter: localStorage.getItem("itemsCount")
     }
+    
   }
+
+  
 
   handleCounterBack = (childCount) => {
     setTimeout(() => { 
@@ -108,6 +111,7 @@ export default class App extends Component {
           {/* {<BurgerCard handleCounterBack={() => this.state.counter} id={1} name={1} components={1} calories={1} price={1} />} */}
             {itemList}
           </div>
+
         </div>
     );    
   }

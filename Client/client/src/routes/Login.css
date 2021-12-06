@@ -84,6 +84,7 @@
     line-height: 0px;
     letter-spacing: 0.05em;
     padding-left: 0;
+    margin-inline-start: 10%;
     
   }
 
@@ -134,4 +135,29 @@
   .SubmitButton:hover {
     box-shadow: 0px 5px 30px #BED9A6;
     cursor: pointer;
+  }
+
+  .LoginToRegister {
+    color: #ffffff;
+    margin-block-end: 1em;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-size: 22px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    z-index: inherit;
+    margin-inline-start: 15%;
+  }
+
+  .LoginToRegisterLink{
+    all:unset;
+    z-index: inherit;
+  }
+
+  .LoginToRegisterLink:hover{
+    color: #BED9A6;
+    text-decoration: underline;
+    text-shadow: 0px 8px 15px #BED9A6;
+    cursor: pointer;
+    z-index: inherit;
   }
