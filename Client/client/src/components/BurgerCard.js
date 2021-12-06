@@ -3,9 +3,24 @@ import burger from "../images/burger.png";
 import './BurgerCard.css';
 import {AddToCart} from "../services/CartService";
 import { Burger } from "../models/Burger";
+import Popup from "./Popup";
 class BurgerCard extends Component {
+  
+  constructor(props){ 
+    super(props)      
+    this.state = {isOpen : false} 
+    this.updateState = this.updateState.bind(this)
+  } 
+
+  updateState(){ 
+    this.setState({isOpen : !this.state.isOpen}) 
+  }; 
+
   onTrigger = (event) => {
-    AddToCart(new Burger(this.props.id, this.props.name, this.props.components, this.props.price));
+    if(AddToCart(new Burger(this.props.id, this.props.name, this.props.components, this.props.price))){
+      this.updateState();
+      
+    }
     this.props.handleCounterBack(1)
     event.preventDefault();
   }
@@ -28,6 +43,9 @@ class BurgerCard extends Component {
         <div className="ButtonWraper">
           <button onClick={this.onTrigger} className="PriceButton">$ {this.props.price}</button>
         </div>
+        {this.state.isOpen && ( 
+          <Popup handleClose={this.updateState} />
+        )}
       </div>
     );
   }
