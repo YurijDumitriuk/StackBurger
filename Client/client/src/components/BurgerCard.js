@@ -18,7 +18,6 @@ class BurgerCard extends Component {
       window.location="/login";
       
     }
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
     this.props.handleCounterBack(1)
     event.preventDefault();
   }
