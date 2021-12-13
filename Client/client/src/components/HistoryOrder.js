@@ -1,6 +1,6 @@
 import React from "react";
 import './HistoryOrder.css';
-import OrderBurgerCard from "./OrderBurgerCard";
+import HistoryBurgerCard from "./HistoryBurgerCard";
 export default function HistoryOrder(props){
     return (
         <div className="HistoryOrderWrapper">
@@ -19,10 +19,10 @@ export default function HistoryOrder(props){
             </div>
             <div className="OrderInfoWrapper">
                 <div className="OrderCardWrapper">
-                    <OrderBurgerCard name='name1' price='price1'/>
-                    <OrderBurgerCard name='name2' price='price2'/>
-                    <OrderBurgerCard name='name3' price='price3'/>
-                    <OrderBurgerCard name='name4' price='price4'/>
+                    <HistoryBurgerCard name='name1' price='price1'/>
+                    <HistoryBurgerCard name='name2' price='price2'/>
+                    <HistoryBurgerCard name='name3' price='price3'/>
+                    <HistoryBurgerCard name='name4' price='price4'/>
                 </div>
             </div>
             <div className="BottomMargin"><p></p></div>
