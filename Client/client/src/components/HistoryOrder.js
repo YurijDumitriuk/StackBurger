@@ -1,28 +1,49 @@
 import React from "react";
 import './HistoryOrder.css';
 import OrderBurgerCard from "./OrderBurgerCard";
+import { GetOrders } from "../services/OrderService";
+import BurgerCard from "./BurgerCard";
+
+function Sort(a, b){
+    if (a.name > b.name) {
+    return 1;
+    }
+    if (a.name < b.name) {
+    return -1;
+    }
+    return 0;
+}
+
+function AddBurgers(burgers){
+    let burgersCards = [];
+    burgers.sort(Sort);
+    burgers.forEach(e => {
+        burgersCards.push(<OrderBurgerCard name = {e.name} price = '?' />)
+    });
+    return burgersCards;
+}
+
 export default function HistoryOrder(props){
+    console.log("Order page: ", props.burgers)
+    let burgersList = AddBurgers(props.burgers);
     return (
         <div className="HistoryOrderWrapper">
             <div className="OrderTopBarWrapper">
                 <ul className="TopItems">
                     <li className="OrderTopBarElement">
-                        Order Date And Hour
+                        Date: {props.date}
                     </li>
                     <li className="OrderTopBarElement">
-                        Total Count
+                        Total Count: {props.burgers.length}
                     </li>
                     <li className="OrderTopBarElement">
-                        Total Price
+                        Total Price:
                     </li>
                 </ul>
             </div>
             <div className="OrderInfoWrapper">
                 <div className="OrderCardWrapper">
-                    <OrderBurgerCard name='name1' price='price1'/>
-                    <OrderBurgerCard name='name2' price='price2'/>
-                    <OrderBurgerCard name='name3' price='price3'/>
-                    <OrderBurgerCard name='name4' price='price4'/>
+                    {burgersList}
                 </div>
             </div>
             <div className="BottomMargin"><p></p></div>

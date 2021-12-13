@@ -35,7 +35,7 @@ namespace Server.Services {
                 Id = o.Id,
                 Date = o.Date,
                 Burgers = o.Burgers
-            });
+            }).OrderByDescending(o => o.Date);
             return new ReturnModel<object>(result, 200, "All user orders returned");
         }
 
