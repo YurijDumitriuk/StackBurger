@@ -1,22 +1,25 @@
 import React from "react";
 import './ProfileHistory.css';
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
 import ProfileLeftNavbar from "../components/ProfileLeftNavbar";
+import HistoryOrder from "../components/HistoryOrder";
 
 export default function ProfileHistory(){
     return(
         <div>
             <Navbar/>
-            <ProfileLeftNavbar />
-                
-                
-                
-                
-                <div className="Column Right">
-                    <h1>You enter Profile History</h1>
+            <div className="MainRow">
+                <ProfileLeftNavbar />
+                <div className="Right">
+                    <p className="HistoryTitle">
+                        Order History
+                    </p>
+                    <HistoryOrder />
+                    <HistoryOrder />
                     
                 </div>
             </div>
+            <div className="BottomMargin"><p></p></div>
+        </div>
     );
 }

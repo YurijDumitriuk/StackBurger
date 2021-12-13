@@ -62,6 +62,6 @@ export default function Order(){
                 <div className="SubmitOrderButtonWraper">
                     <button className="SubmitOrderButton" onClick={() => ConfirmOrder()}>Submit</button>
                 </div>
-            </div>
+        </div>
     );
 }

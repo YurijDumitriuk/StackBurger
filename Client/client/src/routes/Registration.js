@@ -101,7 +101,7 @@ export default function Registration(){
                             <p className="RegistrationFormError">Incorrect password</p>
                         }
                         <p className="RegistrationFormField">
-                            <input onChange={event => phone = event.target.value} type="tel" id="mobilePhone" placeholder="Mobile Phone (+380694201369)" /*required pattern="+[0-9]{12}"*//>
+                            <input onChange={event => phone = event.target.value} type="tel" id="mobilePhone" placeholder="Mobile Phone (0694201369)" /*required pattern="+[0-9]{12}"*//>
                         </p>
                         {phoneE === true && 
                             <p className="RegistrationFormError">Incorrect phone number</p>
