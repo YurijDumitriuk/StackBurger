@@ -27,3 +27,30 @@ export const PostOrder = async (time, userId, burgers) => {
         return true;
     }
 }
+
+async function Get(userId){
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      }
+      const response = await fetch(environment.GetResUrl("/order/user/" + userId), requestOptions)
+      const data = await response.json()
+      return data
+}
+
+export const GetOrders = async (userId) => {
+    let Data = null;
+    try { Data = await Get(userId) }
+    catch {
+        alert("Resource server doesn't respond")
+        return
+    }
+    //console.log(Data)
+    if (Data.status !== 200) {
+        console.log("error");
+    }
+    else {
+        console.log(Data);
+        return Data;        
+    }
+}

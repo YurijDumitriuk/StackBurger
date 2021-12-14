@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -17,53 +18,56 @@ namespace Server.Services {
             if (userId == null)
                 return new ReturnModel<object>(null, 400, "Incorrect user id");
 
-            List<Guid> ids;
-            try {
-                ids = await Context.Orders
-                    .Where(o => o.UserId == userId)
-                    .Select(o => o.Id)
-                    .ToListAsync();
-            } catch(Exception e) {
-                return new ReturnModel<object>(e.Message, 500, "Internal error have occured");
-            }
-
-            List<Order> orders = new List<Order>();
-            foreach (Guid id in ids)
-                orders.Add(await GetOrder(id));
-
-            var result = orders.Select(o => new {
-                Id = o.Id,
-                Date = o.Date,
-                Burgers = o.Burgers
-            });
-            return new ReturnModel<object>(result, 200, "All user orders returned");
+            var orders = (await GetOrders(o => o.UserId == userId))
+                .Select(o => new {
+                    Date = o.Date,
+                    Burgers = o.Burgers.Select(b => new {
+                        Id = b.Id,
+                        Name = b.Name,
+                        Price = b.Components.Sum(c => c.Price)
+                    }),
+                    Price = o.Burgers.Sum(b => b.Components.Sum(b => b.Price))
+                })
+                .OrderByDescending(o => o.Date);
+            return new ReturnModel<object>(orders, 200, "All user orders returned");
         }
 
-        public async Task<ReturnModel<Order>> GetOrderById(Guid? id) {
+        public async Task<ReturnModel<object>> GetOrderById(Guid? id) {
             if (id == null)
-                return new ReturnModel<Order>(null, 400, "Incorrect order id");
+                return new ReturnModel<object>(null, 400, "Incorrect order id");
 
-            Order order = await GetOrder(id);
+            var order = (await GetOrders(o => o.Id == id))
+                .Select(o => new {
+                    Date = o.Date,
+                    Burgers = o.Burgers.Select(b => new {
+                        Id = b.Id,
+                        Name = b.Name,
+                        Price = b.Components.Sum(c => c.Price),
+                        Calories = b.Components.Sum(c => c.Calories),
+                    }),
+                    Price = o.Burgers.Sum(b => b.Components.Sum(c => c.Price))
+                })
+                .FirstOrDefault();
 
             if (order == null)
-                return new ReturnModel<Order>(null, 404, "There is no such an order");
-            return new ReturnModel<Order>(order, 200, "Order is returned");
+                return new ReturnModel<object>(null, 404, "There is no such an order");
+            return new ReturnModel<object>(order, 200, "Order is returned");
         }
 
-        private async Task<Order> GetOrder(Guid? id) {
-            Order order;
+        private async Task<List<Order>> GetOrders(Expression<Func<Order, bool>> predicate) {
+            List<Order> orders;
             try {
-                order = await Context.Orders.
-                    SingleAsync(o => o.Id == id);
-                order.Burgers = await Context.OrdersBurgers
-                    .Where(ob => ob.OrderId == id)
-                    .Select(ob => Context.Burgers
-                        .Single(b => b.Id == ob.BurgerId))
+                orders = await Context.Orders
+                    .Include(o => o.Burgers)
+                    .ThenInclude(b => b.Components)
+                    .AsNoTracking()
+                    .AsSplitQuery()
+                    .Where(predicate)
                     .ToListAsync();
             } catch {
                 return null;
             }
-            return order;
+            return orders;
         }
 
         public async Task<ReturnModel<Guid?>> AddOrder(OrderPostModel model) {
@@ -90,7 +94,7 @@ namespace Server.Services {
             } catch {
                 return new ReturnModel<Guid?>(null, 500, "Internal error have occured");
             }
-            return new ReturnModel<Guid?>(order.Id, 200, "Burger has been added");
+            return new ReturnModel<Guid?>(order.Id, 200, "Order has been added");
         }
     }
 }

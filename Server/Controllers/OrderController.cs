@@ -13,13 +13,13 @@ namespace Server.Controllers {
             Service = service;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("user/{userId}")]
         public async Task<ReturnModel<object>> UserOrders(Guid? userId) {
             return await Service.GetOrdersByUserId(userId);
         }
 
         [HttpGet("info/{id}")]
-        public async Task<ReturnModel<Order>> OrderInfo(Guid? id) {
+        public async Task<ReturnModel<object>> OrderInfo(Guid? id) {
             return await Service.GetOrderById(id);
         }
 
