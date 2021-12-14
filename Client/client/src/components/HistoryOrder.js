@@ -5,6 +5,16 @@ import OrderBurgerCard from "./OrderBurgerCard";
 import { GetOrders } from "../services/OrderService";
 import BurgerCard from "./BurgerCard";
 
+function Sort(a, b){
+    if (a.name > b.name) {
+    return 1;
+    }
+    if (a.name < b.name) {
+    return -1;
+    }
+    return 0;
+}
+
 function AddBurgers(burgers){
     let burgersCards = [];
     burgers.sort(Sort);
