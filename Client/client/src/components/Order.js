@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import './Order.css';
 import OrderBurgerCard from "../components/OrderBurgerCard";
 import { PostOrder } from "../services/OrderService";
-
 let orderItemList=[];
 let totalPrice = 0;
 
@@ -22,33 +21,27 @@ async function ConfirmOrder(){
     }
 }
 
-function Sort(a, b){
-    if (a.name > b.name) {
-    return 1;
-    }
-    if (a.name < b.name) {
-    return -1;
-    }
-    return 0;
-}
 
 function CreateCartList(){
     let burgers = [];
     let result = localStorage.getItem("burgersInCart");
     if(result !== null){
         burgers = JSON.parse(result);
-        burgers.sort(Sort);
         orderItemList = [];
         totalPrice = 0;
+        let i=0;
         burgers.forEach(b => {
+            
             console.log(b.name);
             totalPrice += Number.parseFloat(b.price);
-            orderItemList.push(<OrderBurgerCard name={b.name} price={b.price}/>)
+            orderItemList.push(<OrderBurgerCard number={i} name={b.name} price={b.price} />)
+            i++
         });
     }
 }
 
 export default function Order(){
+    
     CreateCartList();
     return(
         <div className="Right">

@@ -1,18 +1,9 @@
 import React from "react";
 import './HistoryOrder.css';
+import HistoryBurgerCard from "./HistoryBurgerCard";
 import OrderBurgerCard from "./OrderBurgerCard";
 import { GetOrders } from "../services/OrderService";
 import BurgerCard from "./BurgerCard";
-
-function Sort(a, b){
-    if (a.name > b.name) {
-    return 1;
-    }
-    if (a.name < b.name) {
-    return -1;
-    }
-    return 0;
-}
 
 function AddBurgers(burgers){
     let burgersCards = [];
@@ -22,7 +13,6 @@ function AddBurgers(burgers){
     });
     return burgersCards;
 }
-
 export default function HistoryOrder(props){
     console.log("Order page: ", props.burgers)
     let burgersList = AddBurgers(props.burgers);
