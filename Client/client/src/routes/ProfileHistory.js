@@ -15,7 +15,7 @@ async function InitializeOrders(setLoading){
     if(Data !== null){
         Data.data.forEach((e, index) => {
             console.log("Burgers from order ", index, ": ", e.burgers);
-            ordersList.push(<HistoryOrder date = {e.date} burgers = {e.burgers} />)
+            ordersList.push(<HistoryOrder date = {e.date} burgers = {e.burgers} price = {e.price} />)
         });
     }
     setLoading(false);

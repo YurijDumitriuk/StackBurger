@@ -18,7 +18,7 @@ function AddBurgers(burgers){
     let burgersCards = [];
     burgers.sort(Sort);
     burgers.forEach(e => {
-        burgersCards.push(<OrderBurgerCard name = {e.name} price = '?' />)
+        burgersCards.push(<OrderBurgerCard name = {e.name} price = {e.price} />)
     });
     return burgersCards;
 }
@@ -37,7 +37,7 @@ export default function HistoryOrder(props){
                         Total Count: {props.burgers.length}
                     </li>
                     <li className="OrderTopBarElement">
-                        Total Price:
+                        Total Price: {props.price}
                     </li>
                 </ul>
             </div>

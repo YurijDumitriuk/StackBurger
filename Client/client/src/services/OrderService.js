@@ -33,7 +33,7 @@ async function Get(userId){
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       }
-      const response = await fetch(environment.GetResUrl("/order/" + userId), requestOptions)
+      const response = await fetch(environment.GetResUrl("/order/user/" + userId), requestOptions)
       const data = await response.json()
       return data
 }

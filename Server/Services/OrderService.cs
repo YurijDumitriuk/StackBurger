@@ -23,7 +23,8 @@ namespace Server.Services {
                     Date = o.Date,
                     Burgers = o.Burgers.Select(b => new {
                         Id = b.Id,
-                        Name = b.Name
+                        Name = b.Name,
+                        Price = b.Components.Sum(c => c.Price)
                     }),
                     Price = o.Burgers.Sum(b => b.Components.Sum(b => b.Price))
                 })
