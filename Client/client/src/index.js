@@ -9,6 +9,7 @@ import Login from "./routes/Login";
 import Registration from "./routes/Registration";
 import Profile from "./routes/Profile"
 import ProfileHistory from "./routes/ProfileHistory"
+import Constructor from './routes/Constructor';
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -20,6 +21,7 @@ ReactDOM.render(
         <Route path="registration" element={<Registration />} />
         <Route path="profile" element={<Profile />} />
         <Route path="profile_history" element={<ProfileHistory />} />
+        <Route path="constructor" element={<Constructor />} />
       </Routes>
     </StrictMode>
   </BrowserRouter>,
