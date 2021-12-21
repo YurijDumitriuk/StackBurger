@@ -21,9 +21,11 @@ class Navbar extends Component{
 					</div>
 				</Link>
 				<ul className="NavigationItems">
-					<li className="ListItem">
-						<a href="#">CONSTRUCTOR</a>
-					</li>
+					<Link to="/constructor">
+						<li className="ListItem">
+							<a href="#">CONSTRUCTOR</a>
+						</li>
+					</Link>
 					<Link to="/">
 						<li className="ListItem">
 							<a href="#">MENU</a>

@@ -1,0 +1,234 @@
+/*Обнуление*/
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+  *,*:before,*:after{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  :focus,:active{outline: none;}
+  a:focus,a:active{outline: none;}
+  
+  nav,footer,header,aside{display: block;}
+  
+  html,body{
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    
+  }
+  input,button,textarea{font-family:inherit;}
+  
+  input::-ms-clear{display: none;}
+  button{cursor: pointer;}
+  button::-moz-focus-inner {padding:0;border:0;}
+  a, a:visited{text-decoration: none;}
+  a:hover{text-decoration: none;}
+  ul li{list-style: none;}
+  img{vertical-align: top;}
+  
+  h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+  /*--------------------*/
+
+  .Box {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: wrap;
+      height: 87vh;
+      
+      
+  }
+
+  .LeftBlock {
+    flex: 25%;
+    align-items: stretch;
+    min-height: 25%;
+    height:95%;
+    
+    margin-inline-start: 1.5em;
+    
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .VerticalMenu {
+     min-height: 20%;
+     height: 70%;
+     width:90%; 
+     overflow-y: auto;
+     text-align: center;
+     border: 1px solid #000000;
+    border-radius: 35px;
+    mix-blend-mode: soft-light;
+    box-shadow: 0px 10px 30px #BED9A6;
+  }
+
+  .VerticalMenu::-webkit-scrollbar { width: 0 !important }
+  .VerticalMenu{ overflow: -moz-scrollbars-none; }
+  .VerticalMenu{ -ms-overflow-style: none;}
+
+  .VerticalMenu a{
+    background-color: black;
+    color: white;
+    display: block;
+    padding: 6px;
+    text-decoration: none;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.5em;
+  }
+
+  .VerticalMenu a.Element:hover{
+    cursor:pointer;
+    color: #BED9A6;
+    text-decoration: underline;
+    text-shadow: 0px 8px 15px #BED9A6;
+  }
+
+  .VerticalMenu a.Category{
+      font-size: 30px;
+      cursor: default;
+      color: #BED9A6;
+      letter-spacing:2.5px;
+  }
+
+  
+
+
+  .CenterBlock {
+    flex: 35%;
+    align-items: stretch;
+    min-height: 25%;
+    height:95%;
+    background-color: black;
+    margin-inline-start: 1.5em;
+    margin-inline-end: 1.5em;
+    display:flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    overflow-y: auto;
+    border: 0px  #000000;
+    border-radius: 35px;
+    mix-blend-mode: soft-light;
+    box-shadow: 0px 10px 30px #BED9A6;
+    
+  }
+
+  .ComponentImage{
+    display:flex;
+    flex-direction: column-reverse;
+    
+  }
+
+  .ComponentImage img{
+      width:100%;
+      height:40px;
+      margin-block-start: 0.6em;
+      margin-block-end: 0.6em;
+
+  }
+
+  .CenterBlock::-webkit-scrollbar { width: 0 !important }
+  .CenterBlock{ overflow: -moz-scrollbars-none; }
+  .CenterBlock{ -ms-overflow-style: none;}
+
+  .RightBlock {
+    flex: 25%;
+    align-items: stretch;
+    min-height: 25%;
+    height:95%;
+    
+    margin-inline-start: 1.5em;
+    
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    
+
+  }
+
+  .VertMenu{
+    min-height: 20%;
+    height: 60%;
+    width:90%; 
+    overflow-y: auto;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-block-start: 2em;
+    border: 1px solid #000000;
+    border-radius: 35px;
+    mix-blend-mode: soft-light;
+    box-shadow: 0px 10px 30px #BED9A6;
+    display:flex;
+    flex-direction: column-reverse;
+  }
+
+  .VertMenu::-webkit-scrollbar { width: 0 !important }
+  .VertMenu{ overflow: -moz-scrollbars-none; }
+  .VertMenu{ -ms-overflow-style: none;}
+
+  .VertMenu .El{
+    background-color: black;
+    color: white;
+    display: block;
+    padding: 6px;
+    text-decoration: none;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.5em;
+  }
+
+  .VertMenu .El:hover{
+    cursor: default;
+  }
+
+  .RightBlockInfo{
+      margin-block-start: 1.1em;
+      margin-block-end: 1.1em;
+      text-decoration: none;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: bold;
+      color: white;
+      font-size: 26px;
+  }
+
+  .InfoPriceButton {
+    width: 220px;
+    height: 50px;
+    background-color: rgb(89, 131, 7);
+    border-radius: 35px;
+    border-color: rgb(89, 131, 7);
+    margin-block-start: 1.4em;
+    margin-block-end: 1em;
+    font-family: Noto Sans;
+    font-style: normal;
+    
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 23px;
+    color: #ffffff;
+  
+  }
+  .InfoPriceButton:hover {
+    box-shadow: 0px 5px 30px #BED9A6;
+    cursor: pointer;
+  }
