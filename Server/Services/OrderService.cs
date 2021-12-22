@@ -20,7 +20,8 @@ namespace Server.Services {
 
             var orders = (await GetOrders(o => o.UserId == userId))
                 .Select(o => new {
-                    Date = o.Date,
+                    Id = o.Id,
+                    Date = DateFormat(o.Date),
                     Burgers = o.Burgers.Select(b => new {
                         Id = b.Id,
                         Name = b.Name,
@@ -38,7 +39,7 @@ namespace Server.Services {
 
             var order = (await GetOrders(o => o.Id == id))
                 .Select(o => new {
-                    Date = o.Date,
+                    Date = o.Date.ToLongDateString(),
                     Burgers = o.Burgers.Select(b => new {
                         Id = b.Id,
                         Name = b.Name,
@@ -68,6 +69,45 @@ namespace Server.Services {
                 return null;
             }
             return orders;
+        }
+
+        private string DateFormat(DateTime date) {
+            int totalDays = (DateTime.Now - date).Days;
+            switch(totalDays) {
+                case 0:
+                    return "Today";
+                case 1:
+                    return "Yesterday";
+                case 2: case 3:
+                    return $"{totalDays} days ago";
+            }
+
+            int totalWeeks = totalDays / 7;
+            switch (totalWeeks) {
+                case 0:
+                    return "This week";
+                case 1:
+                    return "Yesterweek";
+                case 2: case 3: case 4:
+                    return $"{totalWeeks} weeks ago";
+            }
+
+            int totalMonths = ((DateTime.Now.Year - date.Year) * 12) + DateTime.Now.Month - date.Month;
+            switch (totalMonths) {
+                case 0:
+                    return "This month";
+                case 1:
+                    return "1 month ago";
+                case 2: case 3:
+                    return $"{totalWeeks} months ago";
+            }
+
+            int totalYears = DateTime.Now.Year - date.Year;
+            if (totalYears == 0)
+                return "This year";
+            else return string.Format(
+                "{0} year{1} ago", totalYears, totalYears > 1 ? "s" : "");
+
         }
 
         public async Task<ReturnModel<Guid?>> AddOrder(OrderPostModel model) {
