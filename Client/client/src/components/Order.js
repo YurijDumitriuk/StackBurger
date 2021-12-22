@@ -7,14 +7,11 @@ let totalPrice = 0;
 
 
 async function ConfirmOrder(){
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    //var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date.toString();//+' '+time;
+    var date = new Date();
     var userId = localStorage.getItem("userId");
     var burgers = JSON.parse(localStorage.getItem("burgersInCart"));
-    console.log("Order confirmed: ", dateTime);
-    var result = await PostOrder(dateTime, userId, burgers);
+    console.log("Order confirmed: ", date.toLocaleDateString());
+    var result = await PostOrder(date.toISOString(), userId, burgers);
     if(result === true){
         console.log("Redirecting to history...")
         window.location="/profile_history";
