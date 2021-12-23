@@ -82,7 +82,7 @@ namespace Server.Services {
                     components.Add(new BurgerComponent {
                         BurgerId = burger.Id,
                         ComponentId = model.ComponentsIds[i],
-                        SerialNumber = i
+                        SerialNumber = i + 1
                     });
                 }
 

@@ -3,6 +3,7 @@ import BurgerCard from './components/BurgerCard.js'
 import Navbar from './components/Navbar.js'
 import { environment } from './env'
 import { useState, Component } from 'react';
+import { GetComponents } from './services/ComponentsService';
 
 
 let burgers = null;
@@ -90,6 +91,9 @@ export default class App extends Component {
   }
 
   render() {
+    if(sessionStorage.getItem("componentsList") === null){
+      GetComponents();
+    }
     console.log("Render menu")
     const isLoading = this.state.isLoading;
     const counter = this.state.counter;

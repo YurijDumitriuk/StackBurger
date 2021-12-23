@@ -12,7 +12,6 @@ function LogOut(){
 
 class Navbar extends Component{
 	render(){
-		console.log(this.props);
 		return(
 			<nav className="Navbar">
 				<Link to="/">
@@ -21,7 +20,7 @@ class Navbar extends Component{
 					</div>
 				</Link>
 				<ul className="NavigationItems">
-					<Link to="/constructor">
+					<Link to="/constructor" /*onClick={() => window.location.href="/constructor"*/>
 						<li className="ListItem">
 							<a href="#">CONSTRUCTOR</a>
 						</li>

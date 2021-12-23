@@ -19,7 +19,7 @@ function AddBurgers(burgers){
     let burgersCards = [];
     burgers.sort(Sort);
     burgers.forEach(e => {
-        burgersCards.push(<OrderBurgerCard name = {e.name} price = {e.price} />)
+        burgersCards.push(<HistoryBurgerCard name = {e.name} price = {e.price} />)
     });
     return burgersCards;
 }
