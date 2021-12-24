@@ -23,7 +23,15 @@ function importAll(r) {
   
 const Images = importAll(require.context('../images/burgerComponentsImg', false, /\.(png|jpe?g|svg)$/));
 
-
+function Sort(a, b){
+    if (a > b) {
+    return 1;
+    }
+    if (a < b) {
+    return -1;
+    }
+    return 0;
+}
 
 export default function Constructor() {
     console.log("Starting render!");
@@ -85,19 +93,22 @@ export default function Constructor() {
             tp = tp + e.price);
         setTotalPrice(tp);
         localStorage.setItem("constructorBurger", JSON.stringify(componentsToSend));
-        //console.log("Components array: ", componentsArray);
     };
     
     async function FillComponentsList(){
         let components = [];
         let compList = [];
         components = await JSON.parse(sessionStorage.getItem("componentsList"));
+        let categories = Object.keys(components);
+        categories.sort(Sort);
         if(components !== null){
-            //console.log(components);
-            components.forEach(e => {
-                compList.push(<a className="Element" onClick={()=>updateArrays(e)} href="#">{e.name} <br/>
-                $ {e.price} | {e.calories} kcal | {e.weight} g</a>)
-            })
+            for(let category of categories){
+                compList.push(<a className="Category" href="#">{category}</a>);
+                components[category].forEach(e => {
+                    compList.push(<a className="Element" onClick={()=>updateArrays(e)} href="#">{e.name} <br/>
+                    $ {e.price} | {e.calories} kcal | {e.weight} g</a>)
+                })
+            }
             componentsList = compList;
             componentsLoaded = true;
             setComponentsListS(componentsList);
@@ -107,8 +118,6 @@ export default function Constructor() {
     function FillExistingBurger(){
         var comp = JSON.parse(localStorage.getItem("constructorBurger"));
         componentsToSend = [];
-        //setComponentsArray([]);
-        //setRightList([]);
         console.log(componentsArray, rightList);
         if(comp !== null)
         comp.forEach(e => {

@@ -35,6 +35,7 @@ namespace Server.Services {
                         Weight = c.Weight
                     }
                 })
+                .OrderBy(c => c.Value.Name)
                 .ToLookup(c => c.Key, c => c.Value)
                 .ToDictionary(c => c.Key, c => c);
             return new ReturnModel<object>(result, 200, "All components returned");
