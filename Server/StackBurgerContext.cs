@@ -8,6 +8,7 @@ namespace Server {
         public DbSet<Order> Orders { get; set; }
         public DbSet<Burger> Burgers { get; set; }
         public DbSet<Component> Components { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<OrderBurger> OrdersBurgers { get; set; }
         public DbSet<BurgerComponent> BurgersComponents { get; set; }
 
@@ -18,6 +19,7 @@ namespace Server {
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new BurgerConfiguration());
             builder.ApplyConfiguration(new ComponentConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new OrderBurgerConfiguration());
             builder.ApplyConfiguration(new BurgerComponentConfiguration());
 

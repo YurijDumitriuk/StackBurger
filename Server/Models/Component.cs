@@ -11,10 +11,12 @@ namespace Server.Models {
         public decimal Calories { get; set; }
         public decimal Weight { get; set; }
 
+        public Guid CategoryId { get; set; }
+        public Category Category { get; set; }
+
         [JsonIgnore]
         public List<Burger> Burgers { get; set; }
-        public Component()
-        {
+        public Component() {
             Burgers = new List<Burger>();
         }
     }
