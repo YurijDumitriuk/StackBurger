@@ -28,6 +28,8 @@ const Images = importAll(require.context('../images/burgerComponentsImg', false,
 export default function Constructor() {
     console.log("Starting render!");
 
+    const [counter, setCounter] = useState();
+
     const [componentsListS, setComponentsListS] = useState([]);
 
     const [componentsArray, setComponentsArray] = useState([]);
@@ -130,13 +132,14 @@ export default function Constructor() {
     }
 
     useEffect(() => {
+        setCounter(localStorage.getItem("itemsCount"));
         FillComponentsList();
         FillExistingBurger();
       }, []);
     
     return(
         <div>
-            <Navbar />
+            <Navbar itemCounter={counter} />
             <div className="Box">
                 <div className="LeftBlock">
                     <div className="VerticalMenu">
