@@ -121,7 +121,7 @@ export default function Constructor() {
             if(result === true){
                 localStorage.removeItem("constructorBurger");
                 console.log("Redirecting to history...")
-                window.location="/";
+                window.location="/custom_menu";
             }
         }
         else{
@@ -129,20 +129,10 @@ export default function Constructor() {
         }
     }
 
-    // if(componentsLoaded === false){
-    //     iterations = iterations + 1;
-    //     console.log("Iterations: ", iterations)
-    //     FillComponentsList();
-    // }
-
     useEffect(() => {
         FillComponentsList();
         FillExistingBurger();
       }, []);
-
-    // useEffect(() => {
-        
-    //   }, []);
     
     return(
         <div>

@@ -2,7 +2,7 @@ import './App.css';
 import BurgerCard from './components/BurgerCard.js'
 import Navbar from './components/Navbar.js'
 import { environment } from './env'
-import { useState, Component } from 'react';
+import { useState, useEffect } from 'react';
 import { GetComponents } from './services/ComponentsService';
 
 
@@ -31,7 +31,8 @@ function Sort(a, b){
   return 0;
 }
 
-async function InitializeData(handleCounter) {
+async function InitializeData(setDataLoaded, handleCounter) {
+  itemList = [];
   let Data = null;
   try { Data = await Get() }
   catch {
@@ -63,56 +64,45 @@ async function InitializeData(handleCounter) {
         itemList.push(<BurgerCard handleCounterBack={handleCounter} id={item.id} name={item.name} components={componentsList} calories={item.calories} price={Number.parseFloat(item.price).toFixed(2)} />)
       })
     }
-    //state({isLoading: false});
+    setDataLoaded(true);
   }
 
 }
 
 
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      counter: localStorage.getItem("itemsCount")
-    }
-    
+export default function App() {
+  if(sessionStorage.getItem("componentsList") === null){
+    GetComponents();
+  }
+  const [counter, setCounter] = useState(localStorage.getItem("itemsCount"))
+
+  const handleCounter = () => {
+      setCounter(Number(localStorage.getItem("itemsCount")));
   }
 
-  
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-  handleCounterBack = (childCount) => {
-    setTimeout(() => { 
-      this.setState({counter: Number(this.state.counter) + Number(1)});
-    }, 100);
-    
-    //console.log("Counter in app: ", this.state.counter);
-  }
+  useEffect(() => {
+      InitializeData(setDataLoaded, handleCounter);
+    }, []);
 
-  render() {
-    if(sessionStorage.getItem("componentsList") === null){
-      GetComponents();
-    }
-    console.log("Render menu")
-    const isLoading = this.state.isLoading;
-    const counter = this.state.counter;
-    if(this.state.isLoading){
-    InitializeData(this.handleCounterBack).then(() => {
-      //console.log("Data initialized: ", this.state.isLoading)
-      this.setState({ isLoading: false });
-      //console.log("Data initialized: ", this.state.isLoading)      
-    });
-  }
-    if(this.state.isLoading === true){
-      return (<h1>Loading data</h1>); 
-    }
-    //console.log("waiting for data to be initialized") 
+  if(dataLoaded){
     return(
       <div className="App">
-          <Navbar itemCounter={this.state.counter} />
+          <Navbar itemCounter={counter} />
           <div className="CardWrapper">
-          {/* {<BurgerCard handleCounterBack={() => this.state.counter} id={1} name={1} components={1} calories={1} price={1} />} */}
+            {itemList}
+          </div>
+
+        </div>
+    );    
+  }
+  else{
+    return(
+      <div className="App">
+          <Navbar itemCounter={counter} />
+          <div className="CardWrapper">
             {itemList}
           </div>
 

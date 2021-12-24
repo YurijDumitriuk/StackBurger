@@ -19,7 +19,12 @@ export default function Profile(){
         );
     }
     else{
-        return(<p className="ProfileFormTitle">Not found</p>)
+        return(
+            <div>
+                <Navbar/>
+                <p className="ProfileFormTitle">Not found</p>
+            </div>   
+        );
     }
 }
     

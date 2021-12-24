@@ -1,7 +1,7 @@
 import React from "react";
 import './CustomMenu.css';
 import Navbar from "../components/Navbar";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import BurgerCard from "../components/BurgerCard";
 import { GetCustomBurgers } from "../services/BurgerService";
 
@@ -55,11 +55,11 @@ async function InitializeData(setDataLoaded, handleCounter){
     }
 }
 
-export default function Constructor() {
+export default function CostumMenu() {
     const [counter, setCounter] = useState(localStorage.getItem("itemsCount"))
 
     const handleCounter = () => {
-        setCounter(Number(counter) + Number(1));
+        setCounter(Number(localStorage.getItem("itemsCount")));
     }
 
     const [dataLoaded, setDataLoaded] = useState(false);
