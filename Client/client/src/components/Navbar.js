@@ -20,7 +20,7 @@ class Navbar extends Component{
 					</div>
 				</Link>
 				<ul className="NavigationItems">
-					<Link to="/constructor" /*onClick={() => window.location.href="/constructor"*/>
+					<Link to="/constructor">
 						<li className="ListItem">
 							<a href="#">CONSTRUCTOR</a>
 						</li>
@@ -30,6 +30,13 @@ class Navbar extends Component{
 							<a href="#">MENU</a>
 						</li>
 					</Link>
+					{CheckAuthorization() === true &&
+						<Link to="/custom_menu">
+							<li className="ListItem">
+								<a href="#">CUSTOM MENU</a>
+							</li>
+						</Link>
+					}
 					{CheckAuthorization() === true &&
 						<Link to="/login" onClick={() => LogOut()}>
 							<li className="ListItem">
