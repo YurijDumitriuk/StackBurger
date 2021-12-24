@@ -75,7 +75,7 @@ export default function App() {
   if(sessionStorage.getItem("componentsList") === null){
     GetComponents();
   }
-  const [counter, setCounter] = useState(localStorage.getItem("itemsCount"))
+  const [counter, setCounter] = useState(localStorage.getItem("itemsCount"));
 
   const handleCounter = () => {
       setCounter(Number(localStorage.getItem("itemsCount")));
