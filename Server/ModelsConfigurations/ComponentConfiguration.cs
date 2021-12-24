@@ -15,7 +15,11 @@ namespace Server.ModelsConfigurations {
                 .HasColumnType("decimal(18,2)");
             builder.Property(c => c.Weight).HasColumnName("weight")
                 .HasColumnType("decimal(18,0)");
+            builder.Property(c => c.CategoryId).HasColumnName("category_id");
             builder.HasKey(c => c.Id);
+            builder.HasOne(c => c.Category)
+                .WithOne()
+                .HasForeignKey<Component>(c => c.CategoryId);
         }
     }
 }

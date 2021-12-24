@@ -15,11 +15,8 @@ namespace Server.Controllers {
         }
 
         [HttpGet]
-        public async Task<ReturnModel<List<Component>>> Get() {
-            List<Component> components = await Service.GetComponents();
-            if (components == null) 
-                return new ReturnModel<List<Component>>(null, 404, "Something goes wrong on resource server");            
-            return new ReturnModel<List<Component>>(components, 200, "All components returned");
+        public async Task<ReturnModel<object>> Get() {
+            return await Task.Run(() => Service.GetComponents());
         }
     }
 }
