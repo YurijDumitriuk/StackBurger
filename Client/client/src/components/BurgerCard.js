@@ -25,7 +25,7 @@ class BurgerCard extends Component {
   render() {
     return (
       <div className="Card">
-        <img className="BurgerImage" src={burger} alt="burger" />
+        <img className="BurgerImage" onClick={()=>window.location.href='/details'} src={burger} alt="burger" />
         <div className="BurgerName">
           <p>{this.props.name}</p>
         </div>

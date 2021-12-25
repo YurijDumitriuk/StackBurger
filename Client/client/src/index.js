@@ -11,6 +11,7 @@ import Profile from "./routes/Profile"
 import ProfileHistory from "./routes/ProfileHistory"
 import Constructor from './routes/Constructor';
 import CustomMenu from './routes/CustomMenu';
+import Details from './routes/Details';
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -24,6 +25,7 @@ ReactDOM.render(
         <Route path="profile_history" element={<ProfileHistory />} />
         <Route path="constructor" element={<Constructor />} />
         <Route path="custom_menu" element={<CustomMenu />} />
+        <Route path="details" element={<Details />}/>
       </Routes>
     </StrictMode>
   </BrowserRouter>,
