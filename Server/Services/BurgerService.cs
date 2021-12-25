@@ -22,7 +22,7 @@ namespace Server.Services {
             if (userId == null)
                 return new ReturnModel<object>(null, 400, "Incorrect user id");
             object burgers = await GetBurgers(userId);
-            return new ReturnModel<object>(burgers, 200, "Burger returned");
+            return new ReturnModel<object>(burgers, 200, "Custom burgers returned");
         }
 
         private async Task<object> GetBurgers(Guid? userId = null) {

@@ -28,8 +28,7 @@ namespace Server.Services {
                         Price = b.Components.Sum(c => c.Price)
                     }),
                     Price = o.Burgers.Sum(b => b.Components.Sum(b => b.Price))
-                })
-                .OrderByDescending(o => o.Date);
+                });
             return new ReturnModel<object>(orders, 200, "All user orders returned");
         }
 
@@ -64,6 +63,7 @@ namespace Server.Services {
                     .AsNoTracking()
                     .AsSplitQuery()
                     .Where(predicate)
+                    .OrderByDescending(o => o.Date)
                     .ToListAsync();
             } catch {
                 return null;
