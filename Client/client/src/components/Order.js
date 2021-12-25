@@ -31,7 +31,7 @@ function CreateCartList(){
             
             console.log(b.name);
             totalPrice += Number.parseFloat(b.price);
-            orderItemList.push(<OrderBurgerCard number={i} name={b.name} price={b.price} />)
+            orderItemList.push(<OrderBurgerCard number={i} id = {b.id} name={b.name} price={b.price} />)
             i++
         });
     }

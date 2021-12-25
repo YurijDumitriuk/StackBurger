@@ -12,6 +12,7 @@ export default function Login() {
 
     const [nameE, setNameE] = useState(false);
     const [passwordE, setPasswordE] = useState(false);
+    const [existingUserE, setExistingUserE] = useState();
     
     const navigate = useNavigate();
 
@@ -58,8 +59,15 @@ export default function Login() {
             navigate('/profile')
         }       
         else{
-            HandleErrors(data.errors)
-            console.log(data)
+            if(data.errors !== undefined){
+                setExistingUserE(null);
+                HandleErrors(data.errors);
+            }
+            else{
+                setNameE(false);
+                setPasswordE(false);
+                setExistingUserE(data.message);
+            }
         }
     }
 
@@ -83,6 +91,9 @@ export default function Login() {
                         </p>
                         {passwordE === true && 
                             <p className="LoginFormError">Incorrect password</p>
+                        }
+                        {existingUserE !== null &&
+                            <p className="LoginFormError">{existingUserE}</p>
                         }
                         <p className="LoginFormButton">
                             <button className="SubmitButton" onClick={()=>{handleClick()}} id="submitbutton" type="button">SIGN IN</button>

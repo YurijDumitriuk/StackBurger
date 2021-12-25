@@ -37,3 +37,23 @@
   
   h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
   /*--------------------*/
+
+.DetailsTitle{
+  color: white;
+  font-family: Noto Sans;
+  font-style: normal;
+  margin-block-end: 1em;
+}
+
+.DetailsBurgerName{
+  color: #BED9A6;
+  font-family: Noto Sans;
+  font-style: normal;
+  margin-block-start: 0.3em;
+  margin-block-end: 0.3em;
+  font-size: 40px;
+}
+
+.RightBlockInside{
+  height: 85%;
+}

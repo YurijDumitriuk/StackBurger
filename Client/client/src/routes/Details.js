@@ -11,9 +11,13 @@ let Burger;
 let componentsImages = [];
 let rightList = [];
 let Price;
+let Weight;
+let Calories;
 
 function InitializeBurger(setLoading){
     Price = 0;
+    Weight = 0;
+    Calories = 0;
     componentsImages = [];
     rightList = [];
     Burger = JSON.parse(sessionStorage.getItem("burgerDetails"));
@@ -26,6 +30,8 @@ function InitializeBurger(setLoading){
             rightList.push(<a className="El" href="#">{ind + 1}. {component.name} <br/>
             $ {component.price} | {component.weight} g</a>)
             Price = Price + component.price;
+            Weight = Weight + component.weight;
+            Calories = Calories + component.calories;
         });
         setLoading(true);
     }
@@ -53,16 +59,20 @@ export default function Details(){
                     </div>
                     <div className="RightBlock">
                         <div className="RightBlockInside">
+                            <p className="DetailsBurgerName">{Burger.name}</p>
                             <div className="VertMenu">
                                 {rightList}
                             </div>
                             <div className="RightBlockInfo">
-                                <p className="InfoTitle">
+                                <p className="DetailsTitle">
                                     Total Price: $ {Number.parseFloat(Price).toFixed(2)}
                                 </p>
-                                <div className="InfoButtonWraper">
-                                    <p className="InfoTitle">{Burger.name}</p>
-                                </div>
+                                <p className="DetailsTitle">
+                                    Total Weight: {Number.parseFloat(Weight).toFixed(2)} g
+                                </p>
+                                <p className="DetailsTitle">
+                                    Total Calories: {Number.parseFloat(Calories).toFixed(2)} kcal
+                                </p>
                             </div>        
                         </div>            
                     </div>

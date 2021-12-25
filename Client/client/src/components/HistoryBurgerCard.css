@@ -69,6 +69,7 @@
     line-height: 45px;
     color: #ffffff;
     width: 100%;
+    margin-block-start: 1em;
   }
   
   .HistoryPriceButton {

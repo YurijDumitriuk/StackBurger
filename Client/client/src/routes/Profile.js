@@ -19,10 +19,10 @@ export default function Profile(){
         );
     }
     else{
+        window.location.href = "/login";
         return(
             <div>
                 <Navbar/>
-                <p className="ProfileFormTitle">Not found</p>
             </div>   
         );
     }
