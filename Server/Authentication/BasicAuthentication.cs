@@ -7,8 +7,7 @@ namespace Server.Authentication {
     public class BasicAuthentication {
 
         private RequestDelegate Next { get; }
-        public BasicAuthentication(RequestDelegate next) =>
-            Next = next;
+        public BasicAuthentication(RequestDelegate next) => Next = next;
 
         public async Task InvokeAsync(HttpContext context) {
             string header = context.Request.Headers["Authorization"];

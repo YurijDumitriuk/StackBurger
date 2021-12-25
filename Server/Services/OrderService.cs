@@ -10,12 +10,11 @@ namespace Server.Services {
     public class OrderService {
 
         private StackBurgerContext Context { get; }
-        public OrderService(StackBurgerContext context) {
+        public OrderService(StackBurgerContext context) =>
             Context = context;
-        }
 
         public async Task<ReturnModel<object>> GetOrdersByUserId(Guid? userId) {
-            if (userId == null)
+            if (userId is null)
                 return new ReturnModel<object>(null, 400, "Incorrect user id");
 
             var orders = (await GetOrders(o => o.UserId == userId))
@@ -29,11 +28,12 @@ namespace Server.Services {
                     }),
                     Price = o.Burgers.Sum(b => b.Components.Sum(b => b.Price))
                 });
+
             return new ReturnModel<object>(orders, 200, "All user orders returned");
         }
 
         public async Task<ReturnModel<object>> GetOrderById(Guid? id) {
-            if (id == null)
+            if (id is null)
                 return new ReturnModel<object>(null, 400, "Incorrect order id");
 
             var order = (await GetOrders(o => o.Id == id))
@@ -49,9 +49,9 @@ namespace Server.Services {
                 })
                 .FirstOrDefault();
 
-            if (order == null)
-                return new ReturnModel<object>(null, 404, "There is no such an order");
-            return new ReturnModel<object>(order, 200, "Order is returned");
+            return order is null ?
+                new ReturnModel<object>(null, 404, "There is no such an order") :
+                new ReturnModel<object>(order, 200, "Order is returned");
         }
 
         private async Task<List<Order>> GetOrders(Expression<Func<Order, bool>> predicate) {

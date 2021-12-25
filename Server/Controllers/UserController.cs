@@ -9,23 +9,19 @@ namespace Server.Controllers {
     public class UserController : ControllerBase {
 
         private UserService Service { get; }
-        public UserController(UserService service) {
+        public UserController(UserService service) =>
             Service = service;
-        }
 
         [HttpGet("{id}")]
-        public async Task<ReturnModel<User>> Profile(Guid id) {
-            return await Service.GetUserById(id);
-        }
+        public async Task<ReturnModel<User>> Profile(Guid id) =>
+            await Service.GetUserById(id);
 
         [HttpPost("login")]
-        public async Task<ReturnModel<Guid?>> Login(UserLoginModel model) {
-            return await Service.GetUserIdByLoginModel(model); ;
-        }
-
+        public async Task<ReturnModel<Guid?>> Login(UserLoginModel model) =>
+            await Service.GetUserIdByLoginModel(model);
+        
         [HttpPost("register")]
-        public async Task<ReturnModel<Guid?>> Register(UserRegisterModel model) {
-            return await Service.AddUser(model);
-        }
+        public async Task<ReturnModel<Guid?>> Register(UserRegisterModel model) =>
+            await Service.AddUser(model);        
     }
 }

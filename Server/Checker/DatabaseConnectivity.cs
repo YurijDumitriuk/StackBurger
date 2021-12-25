@@ -8,9 +8,7 @@ namespace Server.Checker {
     public class DatabaseConnectivity {
 
         private RequestDelegate Next { get; }
-        public DatabaseConnectivity(RequestDelegate next) {
-            Next = next;
-        }
+        public DatabaseConnectivity(RequestDelegate next) => Next = next;     
 
         public async Task InvokeAsync(HttpContext httpContext, StackBurgerContext dbContext) {
             if (await dbContext.Database.CanConnectAsync()) {
