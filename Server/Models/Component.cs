@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Server.Models {
     public class Component {
         public Guid Id { get; set; }
+
         public string Name { get; set; }
         public string Url { get; set; }
         public decimal Price { get; set; }
@@ -14,7 +14,6 @@ namespace Server.Models {
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
 
-        [JsonIgnore]
         public List<Burger> Burgers { get; set; }
         public Component() {
             Burgers = new List<Burger>();

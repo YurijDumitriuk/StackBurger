@@ -9,23 +9,19 @@ namespace Server.Controllers {
     public class OrderController : ControllerBase {
 
         private OrderService Service { get; }
-        public OrderController(OrderService service) {
-            Service = service;
-        }
+        public OrderController(OrderService service) =>
+            Service = service;    
 
         [HttpGet("user/{userId}")]
-        public async Task<ReturnModel<object>> UserOrders(Guid? userId) {
-            return await Service.GetOrdersByUserId(userId);
-        }
-
+        public async Task<ReturnModel<object>> UserOrders(Guid? userId) =>
+            await Service.GetOrdersByUserId(userId);
+        
         [HttpGet("info/{id}")]
-        public async Task<ReturnModel<object>> OrderInfo(Guid? id) {
-            return await Service.GetOrderById(id);
-        }
-
+        public async Task<ReturnModel<object>> OrderInfo(Guid? id) =>
+            await Service.GetOrderById(id);
+        
         [HttpPost]
-        public async Task<ReturnModel<Guid?>> MakeOrder(OrderPostModel model) {
-            return await Service.AddOrder(model);
-        }
+        public async Task<ReturnModel<Guid?>> MakeOrder(OrderPostModel model) =>
+            await Service.AddOrder(model);       
     }
 }

@@ -9,9 +9,8 @@ namespace Server.Services {
     public class ComponentService {
 
         private StackBurgerContext Context { get; }
-        public ComponentService(StackBurgerContext context) {
-            Context = context;
-        }
+        public ComponentService(StackBurgerContext context) =>
+            Context = context;        
 
         public async Task<ReturnModel<object>> GetComponents() {
             List<Component> components = null;
@@ -39,6 +38,7 @@ namespace Server.Services {
                 .OrderBy(c => c.Value.Name)
                 .ToLookup(c => c.Key, c => c.Value)
                 .ToDictionary(c => c.Key, c => c);
+
             return new ReturnModel<object>(result, 200, "All components returned");
         }
     }

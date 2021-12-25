@@ -6,6 +6,7 @@ namespace Server.Models {
         public string Name { get; set; }
         public Guid UserId { get; set; }
         public List<Guid> ComponentsIds { get; set; }
+
         public BurgerPostModel() {
             ComponentsIds = new List<Guid>();
         }
