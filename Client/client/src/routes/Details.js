@@ -24,7 +24,6 @@ export default function Details(){
                             <p className="InfoTitle">
                                 Total Price: $ {}
                             </p>
-                            <input  type="text" className="BurgerNameInput" placeholder="Enter your burger name..."></input>
                             <div className="InfoButtonWraper">
                                 <button  className="InfoPriceButton">Create</button>
                             </div>
