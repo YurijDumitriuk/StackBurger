@@ -128,6 +128,7 @@ export default function Constructor() {
 
     async function CreateBurger(){
         if(CheckAuthorization()){
+            console.log("Creating burger: ", componentsToSend)
             var result = await PostBurger(Name, localStorage.getItem("userId"), componentsToSend);
             if(result === true){
                 localStorage.removeItem("constructorBurger");

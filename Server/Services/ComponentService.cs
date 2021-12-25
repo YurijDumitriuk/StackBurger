@@ -28,6 +28,7 @@ namespace Server.Services {
                 .Select(c => new {
                     Key = c.Category.Name,
                     Value = new {
+                        Id = c.Id,
                         Name = c.Name,
                         Url = c.Url,
                         Price = c.Price,
