@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { GetComponents } from "../services/ComponentsService";
 import { PostBurger } from "../services/BurgerService";
 import { CheckAuthorization } from "../services/AutorizationService";
+import { GetImages } from "../services/ImageService";
 
 let componentsLoaded = false;
 let componentsList = [];
@@ -15,13 +16,7 @@ let componentsToSend = [];
 let iterations = 0;
 
 
-function importAll(r) {
-    let images = {};
-    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-    return images;
-  }
-  
-const Images = importAll(require.context('../images/burgerComponentsImg', false, /\.(png|jpe?g|svg)$/));
+const Images = GetImages();
 
 function Sort(a, b){
     if (a > b) {
@@ -34,8 +29,6 @@ function Sort(a, b){
 }
 
 export default function Constructor() {
-    console.log("Starting render!");
-
     const [counter, setCounter] = useState();
 
     const [componentsListS, setComponentsListS] = useState([]);

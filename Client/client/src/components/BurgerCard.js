@@ -4,14 +4,22 @@ import './BurgerCard.css';
 import {AddToCart} from "../services/CartService";
 import { Burger } from "../models/Burger";
 import { Navigate } from "react-router";
+import { GetBurgerDetails } from "../services/ConstructorService";
+
+async function OpenForDetails(id){
+  console.log("Opening burher details by id: ", id);
+  var result = await GetBurgerDetails(id)
+  if(result){
+    window.location.href='/details';
+  }
+}
+
 class BurgerCard extends Component {
   
   constructor(props){ 
     super(props)      
     
   } 
-
-  
 
   onTrigger = (event) => {
     if(AddToCart(new Burger(this.props.id, this.props.name, this.props.components, this.props.price))){
@@ -25,7 +33,7 @@ class BurgerCard extends Component {
   render() {
     return (
       <div className="Card">
-        <img className="BurgerImage" onClick={()=>window.location.href='/details'} src={burger} alt="burger" />
+        <img className="BurgerImage" onClick={()=>OpenForDetails(this.props.id)} src={burger} alt="burger" />
         <div className="BurgerName">
           <p>{this.props.name}</p>
         </div>

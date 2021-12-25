@@ -30,6 +30,33 @@ export const PostBurger = async (name, userId, components) => {
     return false;
 }
 
+async function GetById(id){
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    }
+    const response = await fetch(environment.GetResUrl("/burger/" + id), requestOptions)
+    const data = await response.json()
+    return data
+}
+
+export const GetBurgerById = async (id) => {
+    let Data = null;
+    try { Data = await GetById(id) }
+    catch {
+        alert("Resource server doesn't respond")
+        return
+    }
+    //console.log(Data)
+    if (Data.status !== 200) {
+        console.log("error");
+    }
+    else {
+        console.log(Data);
+        return Data;        
+    }
+}
+
 async function GetCustom(userId){
     const requestOptions = {
         method: 'GET',
