@@ -7,13 +7,13 @@ import { User } from "../models/User";
 import { environment } from '../env'
     
 var name, password, phone, address;
-var incPassword = false, incUsername = false, incPhone = false, incAddress = false;
 
 export default function Registration(){
     const [nameE, setNameE] = useState(false);
     const [passwordE, setPasswordE] = useState(false);
     const [phoneE, setPhoneE] = useState(false);
-    const [addressE, setAddressE] = useState(false);    
+    const [addressE, setAddressE] = useState(false);
+    const [existingUserE, setExistingUserE] = useState();    
     const navigate = useNavigate();
 
     async function SendData(user){
@@ -54,7 +54,6 @@ export default function Registration(){
             setAddressE(true)
             console.log("addres is incorrect")
         }
-        console.log(incUsername, incPassword, incPhone, incAddress)
     }
 
     async function handleClick() {
@@ -72,9 +71,18 @@ export default function Registration(){
             navigate('/login')
         }       
         else{
-            console.log(data.errors)
-            HandleErrors(data.errors)
-            //alert(data.title)
+            console.log(data);
+            if(data.errors !== undefined){
+                setExistingUserE(null);
+                HandleErrors(data.errors)
+            }
+            else{
+                setNameE(false);
+                setPasswordE(false);
+                setPhoneE(false);
+                setAddressE(false);
+                setExistingUserE(data.message);
+            }
         }
     }
     
@@ -111,7 +119,10 @@ export default function Registration(){
                         </p>
                         {addressE === true && 
                             <p className="RegistrationFormError">Incorrect address</p>
-                        }                        
+                        }
+                        {existingUserE !== null &&
+                            <p className="RegistrationFormError">{existingUserE}</p>
+                        }
                         <p className="RegistrationFormButton">
                             <button className="SubmitButton" onClick={()=>{handleClick()}} id="submitbutton" type="button">SIGN UP</button>
                         </p>

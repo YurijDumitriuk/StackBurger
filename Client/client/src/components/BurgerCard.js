@@ -7,7 +7,6 @@ import { Navigate } from "react-router";
 import { GetBurgerDetails } from "../services/ConstructorService";
 
 async function OpenForDetails(id){
-  console.log("Opening burher details by id: ", id);
   var result = await GetBurgerDetails(id)
   if(result){
     window.location.href='/details';

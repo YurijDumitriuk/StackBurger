@@ -22,7 +22,7 @@ namespace Server.Services {
         public async Task<ReturnModel<Guid?>> GetUserIdByLoginModel(UserLoginModel model) {
             User user = await GetUser(u => u.Name == model.Name);
             if (user == null)
-                return new ReturnModel<Guid?>(null, 404, "Incorrect login");
+                return new ReturnModel<Guid?>(null, 404, "Non-existent username");
             if(!BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
                 return new ReturnModel<Guid?>(null, 404, "Incorrect password");
             return new ReturnModel<Guid?>(user.Id, 200, "Authorization successful");
