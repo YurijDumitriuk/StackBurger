@@ -126,7 +126,7 @@ export default function Registration(){
                         <p className="RegistrationFormButton">
                             <button className="SubmitButton" onClick={()=>{handleClick()}} id="submitbutton" type="button">SIGN UP</button>
                         </p>
-                    </form>
+                    </form>    
                 </div>
             </div>
         </div>

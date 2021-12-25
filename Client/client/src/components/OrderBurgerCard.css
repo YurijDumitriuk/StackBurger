@@ -79,6 +79,10 @@
     max-width: 70%;
     align-content: center;
   }
+
+  .OrderBurgerImage:hover {
+    cursor:pointer;
+  }
   
   .OrderBurgerName {
     padding: 0px 20px 20px;
